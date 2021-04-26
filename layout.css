@@ -63,7 +63,6 @@
 }
 .wrapper-left{
 	background-image: url("images/background.png");
-	background-repeat: repeat-y;
 }
 .left-container{
 	width: 20.7%;
@@ -111,15 +110,16 @@
 .entry-tab-container{
 	float: left;
 }
-.subscribe-container{
-	float: right;
-}
 .entry-options{
 	float: left;
+}
+.subscribe-container{
+	float: right;
 }
 .subscribed-tabs{
 	float: right;
 }
+
 .tab-options-content{
 	border-top: 2px solid #7dd9e8;
 }
@@ -141,13 +141,14 @@
 .videolist{
 	padding: 3px 0px;
 }
+
 .footer{
 	width: 100%;
-	background-color: #727272;
+	background-color: #727171;
+	color: #fff;
 }
 .footer-links{
 	float: left;
-	color: #fff;
 	padding: 19px 2px;
 }
 .footer-links ul{
