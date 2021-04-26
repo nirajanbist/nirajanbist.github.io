@@ -184,6 +184,7 @@
 }
 .headline-topic ul li:first-child{
 	padding-right: 5px;
+	padding-left: 2px;
 }
 
 .headline-topic ul li a{
@@ -197,6 +198,7 @@
 .headline-topic p{
 	font-size: 13px;
 	line-height: 20px;
+	padding-left: 2px;
 }
 .headline-topic p a{
 	color:#30a0b6;
