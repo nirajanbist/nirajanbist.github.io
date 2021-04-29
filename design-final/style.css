@@ -47,9 +47,8 @@ nav{
 }
 
 .slide-2{
-	position:relative;
-	top:12vh;
-	left:10vw;
+	padding-top:16vh;
+	padding-left:10vw;
 }
 
 .lower-nav-container{
@@ -105,4 +104,15 @@ nav{
 
 .current-price{
 	color:#8ED1B7;
+}
+
+.topic{
+	font-family: "Titillium web";
+	font-size: 18px;
+	color:#fff;
+}
+
+.subtitle{
+	font-size:14px;
+	color:#767676
 }
