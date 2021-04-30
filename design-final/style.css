@@ -206,6 +206,9 @@ nav{
 .active-nav-link{
 	border-bottom:2px solid #8ED1B7;
 }
+.active-nav-link2 a{
+	color:  #8ED1B7;
+}
 .shop-now-link:hover{
 	color:#fff;
 }
