@@ -206,6 +206,9 @@ nav{
 .active-nav-link{
 	border-bottom:2px solid #8ED1B7;
 }
+.shop-now-link:hover{
+	color:#fff;
+}
 @media screen and (max-width:800px){
 	.product,.card-container,.content, .featured-left,.featured-right,.grn-container{
 		width:100%;
