@@ -264,6 +264,9 @@ hr{
 	color:#fff;
 }
 
+.content-left p{
+	width:70%;
+}
 
 .content-left .read-more{
 	display: block;
