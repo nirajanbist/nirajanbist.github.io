@@ -215,14 +215,48 @@ nav{
 @media screen and (max-width:800px){
 	.product,.card-container,.content, .featured-left,.featured-right,.grn-container{
 		width:100%;
+		max-width: 100%;
 	}
 	.outer{
 		display: none;
 	}
-	.featured-left,.featured-right,.grn-container{
+	.featured-left,.featured-right,.grn-container,{
 		float:none;
+	}
+	.featured-section{
+		margin:0;
 	}
 	.content{
 		padding:20px;
 	}
+	.notifications{
+		float:none;
+		width:100%;
+		clear:both;
+	}
+	.notifications ul{
+		float:right;
+		width: fit-content;
+		margin-right:50px;
+	}
+	.search-area::after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+	.notif-icon{
+		padding:10px;
+	}
+	.search-area{
+		float:right;
+		width: 30%;
+		
+	}
+	
+
+	.logo-container{
+		width: fit-content;
+		float:left;
+	}
+
 }
