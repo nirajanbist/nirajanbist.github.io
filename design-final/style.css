@@ -116,3 +116,101 @@ nav{
 	font-size:14px;
 	color:#767676
 }
+
+.head{
+	font-family: "Titillium web";
+	font-size: 18px;
+	margin-bottom: 20px;
+}
+.f-container{
+	margin-top:60px;
+}
+
+.upper-footer{
+	padding-bottom: 20px;
+	margin-bottom: 40px;
+}
+.lower-footer{
+	border-top:2px solid #eee;
+}
+
+.copyright{
+	margin:12px 0;
+	font-family: "Lato";
+	font-size:13px;
+}
+
+.upper-price{
+	text-decoration: line-through;
+	text-align: right;
+}
+.lower-price{
+	font-size: 45px;
+	color:#fff;
+}
+
+.back-featured{
+	font-size: 168px;
+	padding-left:20px;
+
+}
+
+.shopnow-link{
+	text-decoration: underline;
+	color:#fff;
+	margin-top:60px;
+}
+
+#cart-count{
+	color:#fff;
+	border-radius: 50%;
+	padding:2px 5px;
+	left:-10px;
+	top:-10px;
+	position: relative;
+	background-color: black;
+}
+.upper{
+	position: relative;
+}
+.new-item{
+	padding:15px 10px;
+	position: absolute;
+	border-radius: 50%;
+
+	top:190px;
+	left:72px;
+	color:#fff;
+	font-size: 14px;
+}
+
+.new-commer{
+	background-color: #8ED1B7;
+}
+
+.hot{
+	background-color: #E7A8C6;
+}
+
+.pattern{
+	position:absolute;
+	top:130px;
+	right:0;
+	width:70%;
+	z-index: 2;
+}
+
+@media screen and (max-width:800px){
+	.product,.card-container,.content, .featured-left,.featured-right,.grn-container{
+		width:100%;
+	}
+	.outer{
+		display: none;
+	}
+	.featured-left,.featured-right,.grn-container{
+		float:none;
+	}
+	.content{
+		padding:20px;
+	}
+}

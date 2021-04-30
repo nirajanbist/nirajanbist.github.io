@@ -37,7 +37,7 @@
 	width:20%;
 	margin-top:20px;
 	list-style: none;
-	
+	position: relative;
 }
 
 .notif-icon{
@@ -95,7 +95,7 @@ hr{
 .hr-20{
 	border:0;
 	background-color: #9FCFB4;
-	height:3px;
+	height:2px;
 	margin-left:20%;
 
 }
@@ -103,7 +103,7 @@ hr{
 .hr-full{
 	border:0;
 	background-color: #9FCFB4;
-	height:3px;
+	height:2px;
 }
 
 .main-container{
@@ -124,14 +124,18 @@ hr{
 .product > .upper{
 	min-width: 100px;
 }
-
+.plinks{
+	float:left;
+	width:20%;
+}
 .plinks img{
 	display:block;
 	margin:20px 30px 40px;
 	padding:10px;
 }
 .item-image{
-	width:256px;
+	width:72%;
+	float:right;
 }
 .item-image img{
 	max-width:100%;
@@ -141,8 +145,11 @@ hr{
 .cart-adder-section{
 	padding:40px 0;
 	text-align: center;
+	
 }
-
+.cart-adder-section img{
+	cursor: pointer;
+}
 .cart-link{
 	position: relative;
 	bottom:4px;
@@ -171,18 +178,117 @@ hr{
 }
 
 
+.featured-section{
+	margin-left: 20%;
+	padding-top:5%;
+}
+.featured-left{
+	width:fit-content;
+	position: relative;
+}
+.circular-price{
+	position: absolute;
+	top:90px;
+	margin-top:100px;
+	width:200px;
+	min-height: 200px;
+	border-radius: 50%;
+	background-color: #E7A8C6;
+	border:14px solid #F3D3E2;
+	
+	float:left;
+	
+}
+
+.inner-circle{
+	width: fit-content;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+}
+.outer{
+	width:fit-content;
+	float:right;
+}
+.v-container{
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+}
+
+.vertical-text{
+	letter-spacing: 18px;
+	font-size: 18px;
+	font-family: "Titillium Web";
+	padding-bottom:90px;
+	padding-left: 10px;
+	
+}
+
+.featured-right{
+	max-width: 70%;
+	float: right;
+
+
+}
+.grn-container{
+	float:right;
+	width:90%;
+	background-color: #8ED1B7;
+	height: fit-content;
+	overflow: hidden;
+	position: relative;
+}
+.back-featured{
+	color:#86C5AC;
+	margin-left:60px;
+	
+}
+.text-container{
+	padding:60px;
+	margin-bottom: 30px;;
+	z-index: 10;
+	position:relative;
+}
+.small{
+	font-size:12px;
+}
+.lower-title{
+	font-family: "Titillium Web";
+	font-size:23px;
+}
+.main-text{
+	width:350px;
+	margin:10px 0;
+	line-height: 23px;
+	color:#fff;
+}
+
+
+.content-left .read-more{
+	display: block;
+	margin-top:20px;
+
+}
+.read-more::after{
+	content: "\00bb";
+	padding-right:10px;
+	font-size: medium;
+
+}
 .content-middle li{
 	float:left;
 	width: 50%;
 }
 
-.content-middle li::before{
-	content: ">>";
+.content-middle a::before{
+	content: "\00bb";
 	padding-right:10px;
+	font-size: medium;
 
 }
 .content{
-	width: 30%;
+	width: 33.333%;
 	float:left;
 	line-height: 22px;
 }
@@ -200,7 +306,9 @@ hr{
 
 .copyright{
 	float: left;
+	padding:10px 0;
 }
 .payment-icons{
 	float: right;
 }
+
