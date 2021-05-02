@@ -1,0 +1,50 @@
+*{
+	padding:0px;
+	margin: 0px;
+	font-family:"Roboto","Arial";  
+	box-sizing: border-box;
+}
+
+body{
+	font-size:11px;
+}
+
+.clearfix:after{
+    content: "";
+	display: table;
+	clear: both;
+}
+
+.broad-aligner{
+	max-width: 88em;
+	padding: 0 2vw;
+	margin:0 auto;
+
+}
+
+a{
+	text-decoration: none;
+	color: #000;
+}
+
+ul{
+	list-style: none;
+}
+
+a:hover{
+	color:#8ED1B7;
+}
+
+.plinks img:hover{
+	fill:red;
+	width:15px;
+}
+.fir{
+	font-size:0;
+}
+.fir span{
+	font-size: 1rem;
+	display: inline-block;
+	width:33%;
+	text-align: center;
+}

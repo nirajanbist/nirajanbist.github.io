@@ -1,0 +1,344 @@
+nav{
+	font-size: 11px;
+	letter-spacing: 4px;
+}
+.new{
+	font-family: "Alex Brush";
+	font-size: 73px;
+
+}
+.arrivals{
+	letter-spacing: .5em;
+	text-transform: uppercase;
+	font-weight: lighter;
+	font-size: 23px;
+	padding:0 20px;
+}
+.sky{
+	font-family: "Titillium Web";
+	text-transform: uppercase;
+	font-size: 72px;
+}
+.price{
+	position:relative;
+	font-weight:lighter;
+	font-size: 24px;
+	bottom:32px;
+	padding-left:5px;
+}
+
+.shop-now-link{
+	text-decoration: underline;
+	font-weight: lighter;
+	font-size:16px;
+}
+
+.new-arrivals{
+	position: relative;
+	top:2em;
+}
+
+.slide-number a{
+	font-family: "Titillium Web";
+	font-size: 16px;
+}
+.active-slide-number {
+	color:#fff;
+}
+
+
+
+.lower-nav-container{
+	padding-bottom:10px;
+	border-bottom:2px solid #eee;
+}
+.lower-nav{
+	float:left;
+}
+.lower-nav ul {
+	display: inline-block;
+	padding:10px;
+}
+
+.lower-nav-link{
+	display: inline;
+	padding:10px;
+	font-size:11px;
+}
+.search{
+	float:right;
+	margin-top:10px;
+	clear:right;
+	
+}
+
+.search input{
+	border:0;
+	padding-left:10px;
+	outline:none;
+	position: relative;
+	bottom: 1px;
+	letter-spacing: 1px;
+	float:left;
+	font-size:11px;
+	width:4rem;
+}
+
+.search img{
+	width:11px;
+	float:left;
+}
+.product-name-prices{
+	text-align: center;
+	padding:40px 0;
+	margin:0 25px;
+	border-bottom: 2px solid #eee;
+}
+.product-name{
+	font-family: "Titillium Web";
+	font-size: 23px;
+}
+
+.product-prices{
+	font-size:14px;
+}
+
+.discounted-price{
+	margin-right:10px;
+	text-decoration: line-through;
+}
+
+.current-price{
+	color:#8ED1B7;
+}
+
+.topic{
+	font-family: "Titillium web";
+	font-size: 18px;
+	color:#fff;
+}
+
+.subtitle{
+	font-size:14px;
+	color:#767676
+}
+
+.head{
+	font-family: "Titillium web";
+	font-size: 18px;
+	margin-bottom: 20px;
+}
+.f-container{
+	margin-top:60px;
+}
+
+.upper-footer{
+	padding-bottom: 20px;
+	margin-bottom: 40px;
+}
+.lower-footer{
+	border-top:2px solid #eee;
+}
+
+.copyright{
+	margin:12px 0;
+	font-family: "Lato";
+	font-size:13px;
+}
+
+.upper-price{
+	text-decoration: line-through;
+	text-align: right;
+	font-size:11px;
+}
+.lower-price{
+	font-size: 4em;
+	color:#fff;
+}
+
+.back-featured{
+	font-size: 168px;
+	padding-left:20px;
+
+}
+
+.shopnow-link{
+	text-decoration: underline;
+	color:#fff;
+	margin-top:60px;
+}
+
+#cart-count{
+	color:#fff;
+	border-radius: 50%;
+	padding:2px 5px;
+	left:-10px;
+	top:-10px;
+	position: relative;
+	background-color: black;
+}
+.upper{
+	position: relative;
+}
+.new-item{
+	padding:15px 10px;
+	position: absolute;
+	border-radius: 50%;
+	bottom:20px;
+	transform: translate(-50%,0);
+	color:#fff;
+	font-size: 14px;
+}
+
+.new-commer{
+	background-color: #8ED1B7;
+}
+
+.hot{
+	background-color: #E7A8C6;
+}
+
+.pattern{
+	position:absolute;
+	top:130px;
+	right:0;
+	width:70%;
+	z-index: 2;
+}
+
+.slide-number a:hover{
+	color:#fff;
+}
+.active-nav-link{
+	color: #8ED1B7;
+	text-decoration: underline 2px ;
+}
+.active-nav-link2 a{
+	color:  #8ED1B7;
+}
+.shop-now-link:hover{
+	color:#fff;
+}
+
+@media screen and (max-width:550px){
+	.search-area{
+		float:right;
+		width:10em;
+
+	}
+	.search-area input{
+		float:right;
+		text-align: right;
+		width:9em;
+	}
+
+	.logo-container{
+		padding-left: 20px;
+	}
+
+	.notifications{
+		width:100%;
+		float:none;
+		clear:both;
+		display: table;
+		
+	}
+	.notif-icon-group{
+		display: block;
+		float:none;
+		margin-top:20px;
+		padding-top:20px;
+		border-top:2px solid #eee;
+	}
+	.notif-icon:not(:last-child){
+		border-right:2px solid #eee;
+	}
+	
+	.notif-icon{
+		width:33.33%;
+		float:left;
+		padding:0;
+		text-align: center;
+	}
+
+}
+@media screen and (max-width:1000px){
+	.new,.sky{
+		font-size:10vw;
+	}
+	.arrivals,.price{
+		font-size:3vw;
+	}
+
+	.price{
+		bottom:1.4em;
+	}
+
+	.product,.product:nth-child(3n){
+		width:45%;
+		margin-right:10%;
+	}
+
+	.product:nth-child(2n){
+		margin-right: 0;
+	}
+
+	.featured-left{
+		font-size: 1.4vw;
+		z-index:19;
+		right:99px;
+		bottom:3%;
+	}
+	.featured-section{
+		margin-left: 0;
+	}
+	.featured-right{
+		width:100%;
+	}
+
+	
+	.card-container{width:50%;
+		margin-bottom:10px}
+		
+	.content{
+		width:100%;
+		margin:2%
+	}
+
+	.copyright,.payment-icons{
+		float:none;
+		text-align: center;
+
+	}
+
+}
+@media screen and (max-width:424px) {
+	.nav-link,.lower-nav-link{
+		display:block;
+		font-size:20px;
+	}
+	.lower-nav> a{display: none;}
+	.search{
+		width:100%;
+		padding-left: 20px;
+	}
+	.search input{
+		width:90%;
+	}
+	.product,.product:nth-child(3n){
+		float:none;
+		width: 100%;
+	}
+
+	.card-container{
+		width:100%;
+		margin:10px 0;
+	}
+	.content-left p{
+		width:90%
+	}
+
+	.content{
+		padding-bottom:20px;
+	}
+}
