@@ -166,6 +166,13 @@ nav{
 	text-decoration: underline;
 	color:#fff;
 	margin-top:60px;
+	padding:2px;
+}
+
+.shopnow-link:hover{
+	border:1px solid #eee;
+	background-color: #fff;
+	
 }
 
 #cart-count{
@@ -299,7 +306,7 @@ nav{
 	
 	.card-container{width:50%;
 		margin-bottom:10px}
-		
+
 	.content{
 		width:100%;
 		margin:2%
