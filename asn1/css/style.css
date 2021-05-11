@@ -1,13 +1,13 @@
 
 .carousel-container{
     overflow:hidden;
-    width: 1000px;
+    width: 80%;
+    max-width: 1000px;
     margin:10px auto;
     position: relative;
 }
 .carousel-image-wrapper{
-    width: 1000px;
-    height: 580px;
+    width: 100%;
     display: flex;
     position: relative;
     
