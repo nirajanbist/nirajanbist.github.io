@@ -1,12 +1,15 @@
 var myDivs = document.getElementsByClassName("carousel-image-wrapper");
 var outerDivs = document.getElementsByClassName("carousel-container");
-var cStyle=window.getComputedStyle(myDivs[0]);
-var containerWidth=parseInt(cStyle.getPropertyValue('width'))
+function getWidth(){
+for (var i = 0; i < outerDivs.length; i++) {
+  outerDivs[i].cStyle=window.getComputedStyle(outerDivs[i])
+  outerDivs[i].containerWidth=parseInt(outerDivs[i].cStyle.getPropertyValue('width'))
+}
+}
+getWidth();
 
-
-console.log(containerWidth)
 var timer;
-var currentIndex=0;
+// var currentIndex=0;
 function leftrightButtons(elem){
   elem.leftbtn = document.createElement('div');
   elem.rightbtn=document.createElement('div');
@@ -31,12 +34,12 @@ function dotmaker(cnt,parent){
       dot.classList.add('active-dot')
     }
     dot.addEventListener('click',function(e){
-      parent.left=-e.target.index*containerWidth
-      parent.style.left=-e.target.index*containerWidth+'px'
+      parent.left=-e.target.index*parent.parentElement.containerWidth
+      parent.style.left=-e.target.index*parent.parentElement.containerWidth+'px'
       e.target.classList.add('active-dot')
       parent.lastActive.classList.remove('active-dot')
       parent.lastActive=e.target
-      currentIndex=e.target.index
+      parent.parentElement.currentIndex=e.target.index
     })
     this.elem.appendChild(dot)
   }
@@ -44,18 +47,19 @@ function dotmaker(cnt,parent){
 }
 for (var i = 0; i < outerDivs.length; i++) {
   leftrightButtons(outerDivs[i])
+  outerDivs[i].currentIndex=0
 }
 for (var i = 0; i < myDivs.length; i++) {
   var element = myDivs[i];
   element.imageCount=element.childElementCount;
   element.left=0;
   element.parentElement.leftbtn.addEventListener('click',function(event){
-      currentIndex-=1
-      goLeft(element)
+    event.target.parentElement.currentIndex-=1
+      goLeft(event.target.parentElement.wrapper)
       
   });
   element.parentElement.rightbtn.addEventListener('click',function(event){
-    currentIndex+=1
+    event.target.parentElement.currentIndex+=1
     goRight(event.target.parentElement.wrapper)
     
 });
@@ -63,61 +67,79 @@ for (var i = 0; i < myDivs.length; i++) {
 for (var i = 0; i < outerDivs.length; i++) {
   outerDivs[i].append(dotmaker(myDivs[i].imageCount,myDivs[i]))
   outerDivs[i].wrapper=myDivs[i]
-  
+ 
   
 }
-function goLeft(elem){
 
-  
-  timer = setInterval(function() {
+window.onload=function(){
+ 
+  for (var i = 0; i < outerDivs.length; i++) { 
+
+    outerDivs[i].currentIndex+=1;
+    outerDivs[i].hold=setTimeout(function(){goRight(this.wrapper)}.bind(outerDivs[i]),2000)
+  }
+}
+
+
+function goLeft(elem){
+  getWidth();
+  clearTimeout(elem.parentElement.hold)
+  clearInterval(elem.parentElement.timer)
+ clearInterval(elem.parentElement.timer2)
+ elem.parentElement.timer = setInterval(function() {
     elem.style.left=elem.left+10+'px';
     elem.left=elem.left+10; 
     //reset frame to last image
-    if(currentIndex<0) {
-      currentIndex=elem.imageCount-1;
-      elem.left=-currentIndex*containerWidth;
+    if(elem.parentElement.currentIndex<0) {
+      elem.parentElement.currentIndex=elem.imageCount-1;
+      elem.left=-elem.parentElement.currentIndex*elem.parentElement.containerWidth;
       elem.style.left=elem.left+'px';
-      clearInterval(timer) 
+      clearInterval(elem.parentElement.timer) 
     }
     // after sliding anim
-    else if (elem.left > -currentIndex*containerWidth-10){
+    else if (elem.left > -elem.parentElement.currentIndex*elem.parentElement.containerWidth-10){
       
-      elem.left=-currentIndex*containerWidth;
+      elem.left=-elem.parentElement.currentIndex*elem.parentElement.containerWidth;
       elem.style.left=elem.left+'px';
-      clearInterval(timer)   
+      clearInterval(elem.parentElement.timer)   
     }
   }, 5);
+  elem.parentElement.hold=setTimeout(function(){this.parentElement.currentIndex+=1; goRight(this);}.bind(elem),2000)
   elem.lastActive.classList.remove('active-dot')
   var dotlen=elem.dots.length
-  elem.lastActive=elem.dots[(currentIndex+dotlen)%dotlen]
-  console.log(currentIndex)
+  elem.lastActive=elem.dots[(elem.parentElement.currentIndex+dotlen)%dotlen]
+  console.log(elem.parentElement.currentIndex)
   elem.lastActive.classList.add('active-dot')
 }
 
 function goRight(elem){
- 
-  timer = setInterval(function() {
+ getWidth();
+ clearTimeout(elem.parentElement.hold);
+ clearInterval(elem.parentElement.timer)
+ clearInterval(elem.parentElement.timer2)
+ var myindex=elem.parentElement.currentIndex;
+  elem.parentElement.timer2 = setInterval(function() {
     elem.style.left=elem.left-10+'px';
     elem.left=elem.left-10; 
     //reset frame to first image
-    if(currentIndex===elem.imageCount) {
-      currentIndex=0;
+    if(myindex===elem.imageCount) {
+      elem.parentElement.currentIndex=0;
       elem.left=0;
       elem.style.left=0;
-      clearInterval(timer);
+      clearInterval(elem.parentElement.timer2);
     }
     // after sliding animation
-    else if (elem.left < -currentIndex*containerWidth-10){
+    else if (elem.left < -myindex*elem.parentElement.containerWidth-10){
       
-      elem.left=-currentIndex*containerWidth;
+      elem.left=-myindex*elem.parentElement.containerWidth;
       elem.style.left=elem.left+'px';
-      clearInterval(timer)   
+      clearInterval(elem.parentElement.timer2)   
     }
   }, 5);
-  
+  elem.parentElement.hold=setTimeout(function(){this.parentElement.currentIndex+=1; goRight(this);}.bind(elem),2000)
   elem.lastActive.classList.remove('active-dot')
-  elem.lastActive=elem.dots[currentIndex%elem.dots.length]
-  console.log(currentIndex)
+  elem.lastActive=elem.dots[myindex%elem.dots.length]
+  console.log(myindex)
   elem.lastActive.classList.add('active-dot')
 }
   
