@@ -4,7 +4,7 @@ var ants=[];
 var antCount=10 ;
 var offset=100;
 var img=new Image();
-img.src="../css/ant.png";
+img.src="css/ant.png";
 var antArea=70
 
 function resize(){
