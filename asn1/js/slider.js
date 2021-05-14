@@ -8,7 +8,11 @@ for (var i = 0; i < outerDivs.length; i++) {
 }
 getWidth();
 
-var timer;
+function clearTimer(elem){
+  clearTimeout(elem.parentElement.hold)
+  clearInterval(elem.parentElement.timer)
+ clearInterval(elem.parentElement.timer2)
+}
 // var currentIndex=0;
 function leftrightButtons(elem){
   elem.leftbtn = document.createElement('div');
@@ -34,6 +38,8 @@ function dotmaker(cnt,parent){
       dot.classList.add('active-dot')
     }
     dot.addEventListener('click',function(e){
+      clearTimer(parent)
+      parent.parentElement.hold=setTimeout(function(){this.parentElement.currentIndex+=1; goRight(this);}.bind(parent),4000)
       parent.left=-e.target.index*parent.parentElement.containerWidth
       parent.style.left=-e.target.index*parent.parentElement.containerWidth+'px'
       e.target.classList.add('active-dot')
@@ -76,16 +82,14 @@ window.onload=function(){
   for (var i = 0; i < outerDivs.length; i++) { 
 
     outerDivs[i].currentIndex+=1;
-    outerDivs[i].hold=setTimeout(function(){goRight(this.wrapper)}.bind(outerDivs[i]),2000)
+    outerDivs[i].hold=setTimeout(function(){goRight(this.wrapper)}.bind(outerDivs[i]),4000)
   }
 }
 
 
 function goLeft(elem){
   getWidth();
-  clearTimeout(elem.parentElement.hold)
-  clearInterval(elem.parentElement.timer)
- clearInterval(elem.parentElement.timer2)
+  clearTimer(elem);
  elem.parentElement.timer = setInterval(function() {
     elem.style.left=elem.left+10+'px';
     elem.left=elem.left+10; 
@@ -104,7 +108,7 @@ function goLeft(elem){
       clearInterval(elem.parentElement.timer)   
     }
   }, 5);
-  elem.parentElement.hold=setTimeout(function(){this.parentElement.currentIndex+=1; goRight(this);}.bind(elem),2000)
+  elem.parentElement.hold=setTimeout(function(){this.parentElement.currentIndex+=1; goRight(this);}.bind(elem),4000)
   elem.lastActive.classList.remove('active-dot')
   var dotlen=elem.dots.length
   elem.lastActive=elem.dots[(elem.parentElement.currentIndex+dotlen)%dotlen]
@@ -114,9 +118,7 @@ function goLeft(elem){
 
 function goRight(elem){
  getWidth();
- clearTimeout(elem.parentElement.hold);
- clearInterval(elem.parentElement.timer)
- clearInterval(elem.parentElement.timer2)
+ clearTimer(elem);
  var myindex=elem.parentElement.currentIndex;
   elem.parentElement.timer2 = setInterval(function() {
     elem.style.left=elem.left-10+'px';
@@ -136,7 +138,7 @@ function goRight(elem){
       clearInterval(elem.parentElement.timer2)   
     }
   }, 5);
-  elem.parentElement.hold=setTimeout(function(){this.parentElement.currentIndex+=1; goRight(this);}.bind(elem),2000)
+  elem.parentElement.hold=setTimeout(function(){this.parentElement.currentIndex+=1; goRight(this);}.bind(elem),4000)
   elem.lastActive.classList.remove('active-dot')
   elem.lastActive=elem.dots[myindex%elem.dots.length]
   console.log(myindex)

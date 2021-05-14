@@ -1,0 +1,49 @@
+body {
+  background-color: aquamarine;
+}
+
+#playground {
+  border: 1px solid black;
+}
+#player{
+  margin:10px auto;
+  width: 400px;
+}
+#player-name{
+  width: 100%;
+  text-align: center;
+  font-size: medium;
+  color: white;
+  padding: 10px 0;
+  border: 0;
+  outline: none;
+  background-color: cadetblue;
+}
+#player-name:focus{
+  color:black;
+  background-color: white;
+}
+#player-name::placeholder{
+  color:White;
+}
+
+#gameContainer {
+  margin: 0 auto;
+  position: relative;
+  width: 400px;
+  height: 650px;
+}
+
+.score-sheet {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: calc(100% - 40px);
+  background-color: cadetblue;
+  text-align: center;
+}
+
+.score-sheet > li {
+  list-style: none;
+  font-size: large;
+}
