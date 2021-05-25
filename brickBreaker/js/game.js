@@ -11,10 +11,10 @@ launcher.holdBalls.push({ball:firstBall, xdiff: launcher.width/2})
 log(launcher.holdBalls)
 
 for (x of range(12)) bricks.push(new Brick(x*80, 0*30, 6));
-for (x of range(12)) bricks.push(new Brick(x*80, 1*30, 5, new Expand));
-for (x of range(12)) bricks.push(new Brick(x*80, 2*30, 2, new ChakraBall));
-for (x of range(12)) bricks.push(new Brick(x*80, 3*30, 1, new Magnet));
-for (x of range(12)) bricks.push(new Brick(x*80, 4*30, 1, new FireBall()));
+for (x of range(12)) bricks.push(new Brick(x*80, 1*30, 5, new Expand()));
+for (x of range(12)) bricks.push(new Brick(x*80, 2*30, 2, new ChakraBallPower()));
+for (x of range(12)) bricks.push(new Brick(x*80, 3*30, 1, new Magnet()));
+for (x of range(12)) bricks.push(new Brick(x*80, 4*30, 1, new FireBallPower()));
 for (x of range(12)) bricks.push(new Brick(x*80, 5*30, 2, new BallMultiplier()));
 
 // var level1 = new BrickGrid([
