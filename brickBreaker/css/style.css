@@ -1,0 +1,136 @@
+ *{
+     margin:0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+ body{
+     background:20px 20px, url('../img/background.png')  ;
+     background-size: 174px 140px;
+     /* background-size: auto 100vh; */
+    }
+.container{
+    width:800px;
+    height: 500px;
+    margin: 10px auto;    
+    position: relative;
+}
+#gameCanvas{ 
+    /* background:url('../img/a.jpg')  ; */
+    /* background-size: contain 60px;  */
+    /* background-repeat: no-repeat; */
+    border: 1px solid  red;
+}
+#powerCanvas{ 
+    /* background:rgba(154, 167, 155, 0.89); */
+    border: 1px solid rgb(0, 17, 255);
+}
+.power-container{
+    width:800px;
+    height: 100px;
+    margin: 10px auto;
+}
+/* html {
+    cursor: none;
+} */
+#game-over{
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    background-color: rgb(0, 255, 128);
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    display: none;
+}
+
+.title {
+    background-color: rgb(101, 116, 126);
+    text-align: center;
+    color: #ffee00;
+    font-size: 56px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-radius: 20px 20px 0 0 ;
+    padding: 20px;
+}
+
+.score{
+    background-color: rgb(101, 116, 126);
+    text-align: center;
+    font-size: 56px;
+    color: rgb(0, 247, 255);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 20px;
+    padding:20px;
+}
+.retry {
+    position: relative;
+    margin-top: 30px;
+    height: 50px;
+    
+}
+.retry>div{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    line-height: 100px;
+    text-align: center;
+    color:#ffee00;
+    margin:0 auto;
+    background-color: rgb(44, 63, 114);
+}
+
+.retry>div:active{
+    box-shadow: rgb(44, 63, 114) 0 0 20px;
+    width: 70px;
+    height: 70px;
+    line-height: 90px;
+    background-color: #0f103f;
+}
+
+.score-board{
+    position: absolute;
+    width: calc((100% - 808px)/2);
+    right: 0;
+    top:0;
+    background-color: #0f103f;
+}
+.score-box{
+    display: flex;
+    align-items: center;
+    padding: 20px 0 20px 30px;
+}
+/* .score-img{
+    position: absolute;
+    background: url("../img/score.png") no-repeat;
+    background-position: 21px 35px;
+    z-index: 12;
+    width: fit-content;
+    height: 40px;
+    
+} */
+.your-score{
+    /* height: 20px; */
+    color:aqua;
+    font-size: 45px;
+    text-align: center;
+    border-bottom:2px solid #ffee00 ;
+}
+#score-value{
+    font-size: 65px;
+    color: #ffee00;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding-left: 10px;
+    text-align: center;
+
+}
+
+
+
+.noclick{
+    user-select: none;
+}

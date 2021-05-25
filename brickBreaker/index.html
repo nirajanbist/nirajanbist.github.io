@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Breaker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="game-over">
+            <h1 class="title">GAME OVER</h1>
+            <div class="score">$22850</div>
+            <div class="retry" onclick="location.reload()"><div><img src = "img/try-again.png"></div></div>
+        </div>
+    </div>
+    <div class = "power-container">
+        <canvas id = "powerCanvas"></canvas>
+
+    </div>
+    <div class="score-board noclick">
+        <div class="your-score">YOUR SCORE</div>
+        <div class="score-box"><img src="img/score.png" alt=""><span id="score-value">$53607</span></div>
+    </div>
+    
+    <img id="sprite" src = "img/bricks.png" style="display: none;">
+    <img id="sprite2" src = "img/sprites2.png" style="display: none;">
+</body>
+<script  src="js/Utils.js"></script>
+<script  src="js/Ball.js"></script>
+<script  src="js/Brick.js"></script>
+<script  src="js/Power.js"></script>
+<script  src="js/BrickGrid.js"></script>
+<script  src="js/Launcher.js"></script>
+<script  src="js/game.js"></script>
+</html>
