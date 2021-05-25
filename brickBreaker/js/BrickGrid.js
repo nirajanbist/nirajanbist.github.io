@@ -25,7 +25,7 @@ class BrickGrid{
                 this.onlybricks.push(brik);
             }
         )
-        log(this.bricks);
+        // log(this.bricks);
     }
 
     getPower(code){
@@ -37,7 +37,7 @@ class BrickGrid{
             case 'sx': return new ScoreMultiplier();
             case 'ex': return new Expand();
             case 'sh': return new Shrink();
-            case 'b': return new Bullet();
+            case 'b': return new BulletPower();
             case 'f': return new FireBallPower();
             case 'c': return new ChakraBallPower();
             default: return null;

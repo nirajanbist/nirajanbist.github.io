@@ -2,6 +2,7 @@
      margin:0;
      padding: 0;
      box-sizing: border-box;
+     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
  }
  body{
      background:20px 20px, url('../img/background.png')  ;
@@ -32,7 +33,7 @@
 /* html {
     cursor: none;
 } */
-#game-over{
+#game-over, #you-won{
     position: absolute;
     width: 70%;
     height: 70%;
@@ -44,13 +45,13 @@
     display: none;
 }
 
+
 .title {
     background-color: rgb(101, 116, 126);
     text-align: center;
     color: #ffee00;
-    font-size: 56px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    border-radius: 20px 20px 0 0 ;
+    font-size: 50px;
+       border-radius: 20px 20px 0 0 ;
     padding: 20px;
 }
 
@@ -59,7 +60,6 @@
     text-align: center;
     font-size: 56px;
     color: rgb(0, 247, 255);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin-top: 20px;
     padding:20px;
 }
@@ -104,6 +104,11 @@
     align-items: center;
     padding: 20px 0 20px 30px;
 }
+.score-box img{
+    display: block;
+    align-self: center;
+    justify-self: flex-end;
+}
 /* .score-img{
     position: absolute;
     background: url("../img/score.png") no-repeat;
@@ -120,16 +125,51 @@
     text-align: center;
     border-bottom:2px solid #ffee00 ;
 }
+
+.you-scored{
+    margin-top: 10px;
+    color:aqua;
+    font-size: 55px;
+    text-align: center;
+    background-color: #0f103f;
+}
 #score-value{
     font-size: 65px;
     color: #ffee00;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding-left: 10px;
     text-align: center;
 
 }
+.score-container{
+    background-color: black;
+    margin-top:10px;
+    height: 100px;
+}
 
-
+.final-score::before, .final-score::after{
+    content: '';
+    display: block;
+    clear:both;
+}
+.final-score div{
+    float: left;
+    width: 33.33%;
+    padding-top: 18px;
+    
+}
+.final-score div:first-child{
+    text-align: left;
+    padding-left: 25px;
+}
+.final-score div:last-child{
+    text-align: right;
+    padding-right: 25px;
+}
+#win-score{
+    color:#ffee00;
+    font-size: 55px;
+    text-align: center;
+}
 
 .noclick{
     user-select: none;

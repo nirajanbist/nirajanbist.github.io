@@ -17,9 +17,9 @@ class Power {
     }
 
     draw(ctx){
-        ctx.beginPath();
-        ctx.arc(this.center.x , this.center.y ,this.radius, 0, 2 * Math.PI);       
-        // ctx.fillStyle='blue';
+        // ctx.beginPath();
+        // ctx.arc(this.center.x , this.center.y ,this.radius, 0, 2 * Math.PI);       
+        // // ctx.fillStyle='blue';
         // ctx.fill();
         ctx.drawImage(...this.spriteLocation, this.left, this.top, 30, 30);
     }
@@ -106,12 +106,19 @@ class Shrink extends Power{
     // }
 }
 
-class Bullet extends Power{
+class BulletPower extends Power{
     constructor(){
         super();
         this.scoreContent = 35;
         this.type = "Bullet";
         this.spriteLocation = [sprites2,215,65,60,60];
+        this.time = 200;
+    }
+    powerActivate(){
+        launcher.hasBullets = true;
+    }
+    powerTerminate(){
+        launcher.hasBullets = false;
     }
 }
 

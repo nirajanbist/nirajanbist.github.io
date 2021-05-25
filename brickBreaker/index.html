@@ -12,18 +12,27 @@
         <canvas id="gameCanvas"></canvas>
         <div id="game-over">
             <h1 class="title">GAME OVER</h1>
-            <div class="score">$22850</div>
+            <div id ="game-over-score" class="score">$22850</div>
             <div class="retry" onclick="location.reload()"><div><img src = "img/try-again.png"></div></div>
+        </div>
+        <div id="you-won">
+            <div class="title">Hurray! YOU WON</div>
+            <div class="you-scored">YOU SCORED</div>
+           <div class="score-container"><div class="final-score">
+                <div class="first-icon" ><img src="img/score.png" alt=""></div>
+                <div id="win-score">$67804</div>
+                <div class="first-icon" ><img src="img/score.png" alt=""></div>
+            </div></div>
         </div>
     </div>
     <div class = "power-container">
         <canvas id = "powerCanvas"></canvas>
-
     </div>
     <div class="score-board noclick">
         <div class="your-score">YOUR SCORE</div>
         <div class="score-box"><img src="img/score.png" alt=""><span id="score-value">$53607</span></div>
     </div>
+    
     
     <img id="sprite" src = "img/bricks.png" style="display: none;">
     <img id="sprite2" src = "img/sprites2.png" style="display: none;">

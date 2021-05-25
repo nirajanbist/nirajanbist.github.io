@@ -13,9 +13,10 @@ class Launcher{
         this.life = 10
         this.tempX=this.x;
         this.hasMagnet = false;
-        this.hasBullets = false;
+        this.hasBullets = false ;
         this.holdBalls =[];
         this.scoreMultiplier = 1;
+        this.bullets = new Bullets();
     }
 
     draw(ctx){
@@ -37,6 +38,13 @@ class Launcher{
                 }
             }
         );
+
+        if(this.hasBullets){
+            this.bullets.draw(ctx);
+        }
+        if(this.bullets.firedBullets.length){
+        this.bullets.checkBulletCollision();
+        this.bullets.drawFiredBullets(ctx);}
 
     }
     addPower(power){
@@ -65,13 +73,16 @@ class Launcher{
     holdPosition(e){
         var rct=canvas.getBoundingClientRect();
         this.tempX = e.clientX - rct.left- this.width/2;
-        if (this.tempX < 0) this.tempX = 0;
-        if (this.tempX > canvas.width - this.width) this.tempX = canvas.width - this.width;
+        if (this.tempX < 0) this.tempX = 0 + this.bullets.width * this.hasBullets;
+        if (this.tempX > canvas.width - this.width) this.tempX = canvas.width - this.width-this.bullets.width * this.hasBullets;
         this.holdBalls.forEach(
             (hball)=>{
                 hball.ball.center.x = this.x + hball.xdiff;
             }
         )
+        if (this.hasBullets){
+
+        }
     }
     
 
@@ -82,7 +93,7 @@ class Launcher{
                 if (power.left < this.right && power.right > this.left && power.bottom > this.top ){
                     this.addPower(power);
                     fallingPowers.splice(index, 1);
-                    log(this.powers)
+                    // log(this.powers)
                 }
                 else if( power.bottom > this.bottom) fallingPowers.splice(index,1);
             }
@@ -139,9 +150,16 @@ class Launcher{
         delete this.holdBalls;
         this.holdBalls =[];
 
+        if (this.hasBullets){
+            launcher.bullets.addBullets();
+        }
+
     }
     getLauncherCenter(){
         return {x:this.x + this.width/2, y:this.y - firstBall.radius};
+    }
+    prepareBullets(){
+        this.bullets = new Bullets();
     }
     get left(){
         return this.x;
@@ -158,5 +176,54 @@ class Launcher{
 
     set left(val){
         this.x = val;
+    }
+}
+
+class Bullets{
+    constructor(){
+        this.spriteLocation = [sprites2,11,3,36,103];
+        this.firedBullets =[];
+        this.width = 10;
+        this.height = 25;
+        this.speed = 5;
+    }
+    draw(ctx){
+        ctx.drawImage(...this.spriteLocation, launcher.x-10, launcher.y-5,this.width,this.height);
+        ctx.drawImage(...this.spriteLocation, launcher.x+launcher.width, launcher.y-5,this.width,this.height);
+    }
+    addBullets(){
+        this.firedBullets.push({x:launcher.x-10,y:launcher.y-10},{x:launcher.x + launcher.width,y:launcher.y-10})
+    }
+    drawFiredBullets(ctx){
+        this.firedBullets.forEach(
+            (bullet)=>{
+                ctx.drawImage(...this.spriteLocation,bullet.x, bullet.y, this.width, this.height);
+                bullet.y -= this.speed;
+            }
+        )
+    }
+
+    checkBulletCollision(){
+        for (let i=0; i<this.firedBullets.length;){
+            let bullet=this.firedBullets[i];
+            if (bullet.y < 0) {
+                this.firedBullets.splice(i,1);
+            }
+            else i++;
+        }
+        
+        // log(this.firedBullets)
+        bricks.forEach(
+            (brick,indx)=>{
+                for (let i=0; i<this.firedBullets.length; i++){
+                    let bullet=this.firedBullets[i];
+                    if(bullet.x + this.width>brick.left && bullet.x < brick.right && bullet.y < brick.top ) {
+                        this.firedBullets.splice(i,1);
+                        handleDamage(brick,indx);
+                        break;
+                    }
+                }
+            }
+        );
     }
 }

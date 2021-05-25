@@ -28,8 +28,11 @@ var fcount = 0; //count no. of frame for relative timing;
 var bricks=[]
 var fallingPowers = [];
 var gameOver = false;
+var win = false;
+
 var score = 0;
 var gameOverDialog = document.getElementById('game-over');
+var winDialog = document.getElementById('you-won');
 var scoreElement = document.getElementById('score-value');
 
 var sprites = document.getElementById('sprite')

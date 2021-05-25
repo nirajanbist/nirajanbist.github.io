@@ -7,7 +7,7 @@ class Ball{
         this.width=this.sw;
         this.height=this.sh;
         this.damage=0;
-        this.speed=5;
+        this.speed=6;
         this.savedSpeed = this.speed;
         this.center= center || {x:356, y:400};
         this.direction= direction || {x:Math.cos(getRadian(-30)), y:Math.sin(getRadian(-30))};
@@ -26,9 +26,7 @@ class Ball{
     }
 
     draw(ctx){
-        ctx.save()
         ctx.drawImage(sprites,69,28,28,28,this.left,this.top,20,20);
-        ctx.restore();
     }
 
     update(){
@@ -79,6 +77,10 @@ class FireBall extends Ball{
         super(center, direction);
         this.ht = 45;
         this.n = 0;
+        this.xoffset = 80;
+        this.yoffset = 60;
+        this.width = (this.radius + this.xoffset)*2 ;
+        this.height = (this.radius + this.yoffset)*2 ;
 
     }
     
@@ -101,6 +103,10 @@ class FireBall extends Ball{
 
     draw(ctx){
         ctx.save()
+        // ctx.beginPath()
+        // ctx.strokeStyle ="red"
+        // ctx.rect(this.left-this.xoffset, this.top - this.yoffset, this.width, this.height);
+        // ctx.stroke();
         ctx.translate(this.center.x, this.center.y);
         ctx.rotate(this.getRotation())
         ctx.drawImage(sprites2,4,131+this.ht*this.n,135,45,-this.radius,-this.radius,135/2,45/2);
