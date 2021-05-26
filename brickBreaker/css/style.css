@@ -12,27 +12,32 @@
 .container{
     width:800px;
     height: 500px;
-    margin: 10px auto;    
+    margin: 0 auto;    
+    padding: 10px 0;
     position: relative;
 }
+
 #gameCanvas{ 
-    /* background:url('../img/a.jpg')  ; */
+    background:20px 20px, url('../img/background.png')  ;
+    background-size: 174px 140px;
     /* background-size: contain 60px;  */
     /* background-repeat: no-repeat; */
-    border: 1px solid  red;
+    border: 10px solid  transparent;
+    border-image: url('../img/wall.jpg') 40 round;
+
 }
 #powerCanvas{ 
     /* background:rgba(154, 167, 155, 0.89); */
     border: 1px solid rgb(0, 17, 255);
+    border: 10px solid  transparent;
+    border-image: url('../img/wall.jpg') 40 round;
 }
 .power-container{
     width:800px;
     height: 100px;
-    margin: 10px auto;
+    margin: 30px auto 0;
 }
-/* html {
-    cursor: none;
-} */
+
 #game-over, #you-won{
     position: absolute;
     width: 70%;
@@ -92,12 +97,15 @@
     background-color: #0f103f;
 }
 
-.score-board{
+.sidebar{
     position: absolute;
-    width: calc((100% - 808px)/2);
-    right: 0;
-    top:0;
+    width: calc((100% - 840px)/2);
+    top:10px;
     background-color: #0f103f;
+    height: 640px;
+}
+.score-board{
+    right:0;
 }
 .score-box{
     display: flex;
@@ -173,4 +181,24 @@
 
 .noclick{
     user-select: none;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.buttons button{
+    width: 100%;
+    height: 40px;
+    margin:10px;
+    border-radius: 10px;
+    font-size: 25px;
+    background-color: rgb(47, 107, 19);
+    color: #fff;
+    
+
+}
+.left-panel{
+    left:10px;
 }

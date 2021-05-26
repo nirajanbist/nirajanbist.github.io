@@ -14,11 +14,11 @@ class Brick{
     }
 
 
-    draw(ctx){
+    draw(ctx, spritess=sprites){
         // ctx.beginPath();
         // ctx.fillStyle=this.color[this.damage-1]
         // ctx.fillRect(this.left, this.top, this.width, this.height);
-        ctx.drawImage(sprites,0,0+(this.damage-1)*23,67,23,this.x,this.y,this.width,this.height);
+        ctx.drawImage(spritess,0,0+(this.damage-1)*23,67,23,this.x,this.y,this.width,this.height);
 
     }
     placePower(){

@@ -22,6 +22,14 @@ function getDistance(point,corner){
     return Math.sqrt(x*x + y*y )
 }
 
+function resume(){
+    creator=false;
+    launcher.replay = true;
+    requestAnimationFrame(nextFrame);
+    
+}
+
+
 // var frameTimestamp = Date.now();
 
 var fcount = 0; //count no. of frame for relative timing;
@@ -34,9 +42,13 @@ var score = 0;
 var gameOverDialog = document.getElementById('game-over');
 var winDialog = document.getElementById('you-won');
 var scoreElement = document.getElementById('score-value');
+var replayButton = document.getElementById('replay');
+var nextStageButton = document.getElementById('next-stage');
+var levelElement = document.getElementById('level');
 
 var sprites = document.getElementById('sprite')
 var sprites2 = document.getElementById('sprite2');
+var spritesCreator = document.getElementById('spriteCreator');
 
 var canvas = document.getElementById('gameCanvas');
 var ctx = canvas.getContext('2d');

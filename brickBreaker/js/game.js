@@ -16,14 +16,12 @@ launcher.holdBalls.push({ball:firstBall, xdiff: launcher.width/2})
 // // for (x of range(10)) bricks.push(new Brick(x*80, 3*30, 5, new Magnet()));
 // // for (x of range(10)) bricks.push(new Brick(x*80, 4*30, 5, new FireBallPower()));
 // for (x of range(10)) bricks.push(new Brick(x*80, 5*30, 5, new ScoreMultiplier()));
+var creator = false;
 
-var level1 = new BrickGrid([
-    [0,1,'bx'],[1,3],[2,2,'sx'],[3,1],[5,2],[6,4,'m'],[7,1,'sh'],
-    [13,1,'ex'],[34,5,'c'],[38,4,'b'],[47,5,'f']
-]);
-var currentLevel = level1;
+var currentLevel = new BrickGrid(1);
 
-bricks = currentLevel.onlybricks;
+bricks = currentLevel.bricks;
+levelElement.innerText = "Level " + currentLevel.level;
 
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -139,6 +137,7 @@ function updateFrame(){
 }
 
 function nextFrame(){
+    if(creator) return;
     fcount++;
     var collectedScore = score;
     score=0;
@@ -161,10 +160,37 @@ function nextFrame(){
     }
 }
 
-requestAnimationFrame(nextFrame)
 window.addEventListener('resize',resize)
 window.addEventListener('mousemove', launcher.holdPosition.bind(launcher))
 window.addEventListener('click',launcher.onClick.bind(launcher));
 
+function initLevel(){
+    win = false;
+    winDialog.style = "display:none";
+    score = 0;
+    fcount = 0;
+    fallingPowers =[]
 
-
+    firstBall = new Ball();
+    firstBall.speed = 0;
+    balls = [firstBall]
+    launcher.init();
+    firstBall.center = launcher.getLauncherCenter()
+    launcher.holdBalls.push({ball:firstBall, xdiff: launcher.width/2})
+    currentLevel.level +=this;
+    levelElement.innerText = "Level " + currentLevel.level;
+    currentLevel.init();
+    launcher.replay = true;
+    bricks= currentLevel.bricks;
+    requestAnimationFrame(nextFrame)
+}
+replayButton.addEventListener('click',initLevel.bind(0))
+nextStageButton.addEventListener('click',initLevel.bind(1))
+var levelCreator;
+function createLevel(){
+    creator=true;
+    levelCreator.init();
+}
+window.onload = ()=>{
+    levelCreator = new LevelCreator();
+    requestAnimationFrame(nextFrame);}

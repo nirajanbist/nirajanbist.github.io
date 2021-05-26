@@ -1,6 +1,9 @@
 // import powerctx from "./Power.js"
 class Launcher{
     constructor(){
+        this.init();
+    }
+    init(){
         this.powers = [] ;
         this.length = 1;
         this.width = 88;
@@ -17,8 +20,8 @@ class Launcher{
         this.holdBalls =[];
         this.scoreMultiplier = 1;
         this.bullets = new Bullets();
+        this.replay = false;
     }
-
     draw(ctx){
         ctx.beginPath();
         // ctx.fillStyle=this.color[0]
@@ -141,6 +144,9 @@ class Launcher{
     }
 
     onClick(){
+        if(this.replay) {
+            this.replay = false;
+            return}
         this.holdBalls.forEach(
             (hball)=>{
                 hball.ball.speed = hball.ball.savedSpeed;

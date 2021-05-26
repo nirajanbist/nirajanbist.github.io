@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="sidebar left-panel noclick">
+        <div id="level" class="your-score">Level</div>
+        <button class="custom-level" onclick="createLevel()">Custom Level</button>
+        <button class="custom-level" onclick="resume()">Resume</button>
+    </div>
     <div class="container">
         <canvas id="gameCanvas"></canvas>
         <div id="game-over">
@@ -19,23 +24,31 @@
             <div class="title">Hurray! YOU WON</div>
             <div class="you-scored">YOU SCORED</div>
            <div class="score-container"><div class="final-score">
-                <div class="first-icon" ><img src="img/score.png" alt=""></div>
+                <div class="first-icon" ><img src="img/score.png" alt="First Coin"></div>
                 <div id="win-score">$67804</div>
-                <div class="first-icon" ><img src="img/score.png" alt=""></div>
-            </div></div>
+                <div class="first-icon" ><img src="img/score.png" alt="Second Coin"></div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="replay">Replay</button>
+                <button id ="next-stage">Next Stage</button>
+            </div>
         </div>
+
+
     </div>
     <div class = "power-container">
-        <canvas id = "powerCanvas"></canvas>
+        <canvas id = "powerCanvas" ></canvas>
     </div>
-    <div class="score-board noclick">
+    <div class="sidebar score-board noclick">
         <div class="your-score">YOUR SCORE</div>
-        <div class="score-box"><img src="img/score.png" alt=""><span id="score-value">$53607</span></div>
+        <div class="score-box"><img src="img/score.png" alt="Score Coin Image"><span id="score-value">$53607</span></div>
     </div>
     
     
     <img id="sprite" src = "img/bricks.png" style="display: none;">
     <img id="sprite2" src = "img/sprites2.png" style="display: none;">
+    <img id="spriteCreator" src = "img/bricksCreate.png" style="display: none;">
 </body>
 <script  src="js/Utils.js"></script>
 <script  src="js/Ball.js"></script>
@@ -43,5 +56,6 @@
 <script  src="js/Power.js"></script>
 <script  src="js/BrickGrid.js"></script>
 <script  src="js/Launcher.js"></script>
+<script  src="js/LevelCreator.js"></script>
 <script  src="js/game.js"></script>
 </html>
