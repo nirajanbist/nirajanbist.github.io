@@ -1,6 +1,6 @@
 class Power {
     constructor(){
-        this.time = 150;
+        this.time = 750;
         this.center = {x:300, y:400};
         this.bar ={x:60, y:20}
         this.width = 200;
@@ -133,7 +133,7 @@ class ChakraBallPower extends Power{
         var newChakraBall = new ChakraBall()
         var dir = getRandomDirection();
         newChakraBall.direction = dir;
-        newChakraBall.direction.y = -Math.sin(Math.random()*(Math.PI - 0.17)-0.17);
+        newChakraBall.direction.y = -Math.abs(Math.sin(Math.random()*(Math.PI - 0.17)+0.17));
         newChakraBall.makeUnitDirection(); 
         newChakraBall.speed=0;
         newChakraBall.center = launcher.getLauncherCenter()
@@ -215,7 +215,7 @@ class FireBallPower extends Power{
         var newFireBall = new FireBall()
         var dir = getRandomDirection();
         newFireBall.direction = dir;
-        newFireBall.direction.y = -Math.sin(Math.random()*(Math.PI - 0.17)-0.17);
+        newFireBall.direction.y = -Math.abs(Math.sin(Math.random()*(Math.PI - 0.27)+0.27));
         newFireBall.makeUnitDirection(); 
         newFireBall.speed=0;
         newFireBall.center = launcher.getLauncherCenter()
@@ -245,18 +245,22 @@ class Expand extends Power{
 class SpeedUp extends Power{
     constructor(){
         super();
-        this.type = "Speed-UP";
+        this.type = "Speed";
         this.scoreContent = 97;
         this.spriteLocation = [sprites2,158,65,60,60];
     }
     powerActivate(){
+        var setSpeed = 10;
+        if(launcher.hasSpeedDown) {setSpeed = 6; this.time =0; launcher.hasSpeedDown = false}
         balls.forEach((ball)=>{
-        if(ball.speed)ball.speed = 10;});
+        if(ball.speed)ball.speed = setSpeed;});
         score += this.scoreContent;
+        launcher.hasSpeedUp = true;
     }
     powerTerminate(){
         balls.forEach((ball)=>{
-            if(ball.speed)ball.speed = 5;});
+            if(ball.speed)ball.speed = 6;});
+        launcher.hasSpeedUp = false;
     }
 }
 
@@ -264,8 +268,20 @@ class SpeedDown extends Power{
     constructor(){
         super();
         this.scoreContent = 97;
-        this.type = "Speed-DOWN";
+        this.type = "Speed";
         this.spriteLocation = [sprites2,158,125,60,60];
     }
-    
+    powerActivate(){
+        var setSpeed = 3;
+        if(launcher.hasSpeedUp) {setSpeed = 6; this.time =0; launcher.hasSpeedUp = false}
+        balls.forEach((ball)=>{
+        if(ball.speed)ball.speed = setSpeed;});
+        score += this.scoreContent;
+        launcher.hasSpeedDown = true;
+    }
+    powerTerminate(){
+        balls.forEach((ball)=>{
+            if(ball.speed)ball.speed = 6;});
+        launcher.hasSpeedDown = false;
+    }
 }

@@ -1,27 +1,14 @@
 
 
-// import Ball from "./Ball.js"
 var firstBall = new Ball();
-firstBall.speed = 0;
 var balls = [firstBall]
 var launcher = new Launcher()
-firstBall.center = launcher.getLauncherCenter()
-launcher.holdBalls.push({ball:firstBall, xdiff: launcher.width/2})
-// launcher.holdBalls.push(balls.pop())
-// log(launcher.holdBalls)
-
-// // for (x of range(10)) bricks.push(new Brick(x*80, 0*30, 5));
-// // for (x of range(10)) bricks.push(new Brick(x*80, 1*30, 5, new Expand()));
-// // for (x of range(10)) bricks.push(new Brick(x*80, 2*30, 5, new ChakraBallPower()));
-// // for (x of range(10)) bricks.push(new Brick(x*80, 3*30, 5, new Magnet()));
-// // for (x of range(10)) bricks.push(new Brick(x*80, 4*30, 5, new FireBallPower()));
-// for (x of range(10)) bricks.push(new Brick(x*80, 5*30, 5, new ScoreMultiplier()));
 var creator = false;
-
+var levelCreator;
 var currentLevel = new BrickGrid(1);
 
-bricks = currentLevel.bricks;
-levelElement.innerText = "Level " + currentLevel.level;
+initLevel();
+
 
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -47,6 +34,7 @@ function checkBrickCollusion(ball){
     var hitIndex = 0;
     var brick;
     
+    // ChakraBall collision Handle
     if (ball instanceof ChakraBall) {
         for (let i=0; i<bricks.length; i++){
             brick=bricks[i];
@@ -56,6 +44,7 @@ function checkBrickCollusion(ball){
         return;
     }
 
+    // Normal Ball Brick Collison Handle
     for (let i=0; i<bricks.length; i++){
         brick=bricks[i];
         if (left < brick.right && right  > brick.left && top < brick.bottom && bottom  > brick.top ){
@@ -79,6 +68,7 @@ function checkBrickCollusion(ball){
         }
     }
 
+    // Also Affect Nearby Bricks if ball is FireBall
     if(hitIndex && ball instanceof FireBall){
         for (let i=0; i<bricks.length; i++){
             brick = bricks[i];
@@ -92,13 +82,16 @@ function checkBrickCollusion(ball){
 }
 
 function checkCanvasCollision(ball,index){
+
+    // Canvas TOP Rebound back
     if (ball.left < 0 || ball.right > canvas.width) 
     {
         ball.direction.x = -ball.direction.x;
         if (ball.left < 0) ball.left=0
         else ball.right=canvas.width
-        // log(ball.direction)
     }
+
+    // Rebound Up or Decrease Life if ball passed Launcher
     if (ball.top < 0 || ball.bottom > canvas.height) 
     {
         ball.direction.y = - ball.direction.y;
@@ -108,13 +101,21 @@ function checkCanvasCollision(ball,index){
             if (balls.length > 1)
                balls.splice(index,1);
             else
-            gameOver = true;
+            handleLife();
         }
-        // location.reload();
-        // log(ball.direction)
     }
 }
 
+function handleLife(){
+    if (lifeIndicators.childElementCount>1){
+        lifeIndicators.removeChild(lifeIndicators.firstElementChild);
+        resetStageForNextLife();
+    }
+    else{
+        lifeIndicators.removeChild(lifeIndicators.firstElementChild);
+        gameOver = true;
+    }
+}
 
 function checkCollusion(){
     launcher.x = launcher.tempX;
@@ -133,7 +134,7 @@ function updateFrame(){
         ball.update();
     });
     fallingPowers.forEach((power)=>power.update());
-    scoreElement.innerText = '$'+score;
+    scoreElement.innerText = score;
 }
 
 function nextFrame(){
@@ -150,24 +151,34 @@ function nextFrame(){
     if (!gameOver && !win) requestAnimationFrame(nextFrame);
     else if(gameOver){
         gameOverDialog.style = "display: block;"
-        document.getElementById('game-over-score').innerText = '$'+score;
+        document.getElementById('game-over-score').innerText = score;
+        setHighScore();
     }
-    else {
+    else if(win) {
         ctx.clearRect(0,0,canvas.width,canvas.height);
         powerctx.clearRect(0,0,powerCanvas.width,powerCanvas.height);
         winDialog.style = "display: block;"
-        document.getElementById('win-score').innerText = '$'+score;
+        document.getElementById('win-score').innerText = score;
+        previousStageScore = score;
+        setHighScore();
     }
 }
 
-window.addEventListener('resize',resize)
-window.addEventListener('mousemove', launcher.holdPosition.bind(launcher))
-window.addEventListener('click',launcher.onClick.bind(launcher));
 
-function initLevel(){
-    win = false;
-    winDialog.style = "display:none";
-    score = 0;
+function addWindowEvents(){
+    window.addEventListener('mousemove', launcher.holdPosition)
+    window.addEventListener('click',launcher.onClick);
+    resumeBtn.addEventListener('click',resumeGame);
+    replayButton.addEventListener('click',playCurrentLevel)
+    nextStageButton.addEventListener('click', playNextLevel)
+}
+
+function removeWindowEvents(){
+    window.removeEventListener('mousemove', launcher.holdPosition)
+    window.removeEventListener('click',launcher.onClick);
+}
+
+function resetStageForNextLife(){
     fcount = 0;
     fallingPowers =[]
 
@@ -176,21 +187,124 @@ function initLevel(){
     balls = [firstBall]
     launcher.init();
     firstBall.center = launcher.getLauncherCenter()
+    launcher.holdBalls=[];
     launcher.holdBalls.push({ball:firstBall, xdiff: launcher.width/2})
-    currentLevel.level +=this;
-    levelElement.innerText = "Level " + currentLevel.level;
+}
+
+function playNextLevel(e){
+    if(currentMode=='arcade'){
+        previousStageScore = score;
+        currentLevel.level++;
+        if(currentLevel.level === 1) previousStageScore = 0;
+        playCurrentLevel()
+    }
+}
+
+function playCurrentLevel(e){
+    initLevel()
+    score = previousStageScore;
+    requestAnimationFrame(nextFrame);
+}
+
+function playCustomLevel(e){
+    if (levelCreator.bricks.length<1) {
+        alert("No Bricks to Play! Please Create Custom Level First")
+        return;
+    }
+    currentLevel.level = 0;
+    score=0;
+    currentLevel.makeCustomLevel();
+    initLevel();
+    if(clickedonce){
+        requestAnimationFrame(nextFrame)
+        clickedonce = false;
+    }
+}
+
+function initLevel(){
+    win = false;
+    winDialog.style = "display:none";
+    fcount = 0;
+    fallingPowers =[]
+    firstBall = new Ball();
+    firstBall.speed = 0;
+    balls = [firstBall]
+    launcher.init();
+    firstBall.center = launcher.getLauncherCenter()
+    launcher.holdBalls=[];
+    launcher.holdBalls.push({ball:firstBall, xdiff: launcher.width/2})
+    levelElement.innerText = "Level " + (currentLevel.level || "custom");
+    highestScoreElement.innerText = highestScore;
     currentLevel.init();
-    launcher.replay = true;
     bricks= currentLevel.bricks;
-    requestAnimationFrame(nextFrame)
 }
-replayButton.addEventListener('click',initLevel.bind(0))
-nextStageButton.addEventListener('click',initLevel.bind(1))
-var levelCreator;
-function createLevel(){
-    creator=true;
-    levelCreator.init();
-}
+
 window.onload = ()=>{
     levelCreator = new LevelCreator();
-    requestAnimationFrame(nextFrame);}
+    makeDivs();
+    requestAnimationFrame(nextFrame);
+}
+function makeDivs(){
+    darea = document.getElementById('display-area')
+    predef = document.createElement('div')
+    predef.id = "predefined-levels"
+    custom = document.createElement('div')
+    custom.id = "custom-levels"
+    var level;
+    function divCreate(id,txt){
+        level = document.createElement('div')
+        level.classList.add('btn','w1','tc','level')
+        level.innerText = txt;
+        level.id = id;
+        return level;
+    }
+
+    for(let i=1; i<=5; i++){
+        divCreate(i+'level',"Level " + i);
+        predefinedLevelElements.push(level);
+        predef.append(level)
+    }
+        
+        divCreate('create-level', "Create Custom Level");
+        custom.append(level)
+        divCreate('save-level', "Save Level");
+        level.classList.add('none');        
+
+    for(let i=1; i<=1; i++){
+        divCreate(i+'level',"Play Custom Level " );
+        // level.addEventListener('click', playCustomLevel);
+        customLevelElements.push(level);
+        custom.append(level)
+    }
+    
+    divCreate('save-level', "Save Level");
+    level.classList.add('none');
+    darea.appendChild(level)
+    createLevel = level;
+    createLevel.onclick = resumeGame;
+    
+    divCreate('add-brick', "ADD BRICK");
+    level.classList.add('none');
+    darea.appendChild(level)
+    addBrick=level;
+
+    divCreate('remove-brick', "REMOVE BRICK");
+    level.classList.add('none');
+    darea.appendChild(level)
+    removeBrick =level;
+    addBrick.onclick = removeBrick.onclick = toggleEditMode;
+
+    custom.classList.add('none')
+    darea.appendChild(predef)
+    darea.appendChild(custom)
+
+}
+var predefinedLevelElements=[];
+var customLevelElements=[];
+var darea;
+var predef;
+var custom;
+var createLevel;
+var addBrick;
+var removeBrick;
+addWindowEvents();

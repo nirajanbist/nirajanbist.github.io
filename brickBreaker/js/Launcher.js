@@ -17,10 +17,11 @@ class Launcher{
         this.tempX=this.x;
         this.hasMagnet = false;
         this.hasBullets = false ;
+        this.hasSpeedDown = false ;
+        this.hasSpeedUp = false ;
         this.holdBalls =[];
         this.scoreMultiplier = 1;
         this.bullets = new Bullets();
-        this.replay = false;
     }
     draw(ctx){
         ctx.beginPath();
@@ -69,21 +70,21 @@ class Launcher{
             this.powers[blankIndex] = power;}
         else {
             // this.powers[currentIndex].powerTerminate();
-            this.powers[currentIndex] = power;
+            launcher.powers[currentIndex] = power;
         }
     }
 
     holdPosition(e){
         var rct=canvas.getBoundingClientRect();
-        this.tempX = e.clientX - rct.left- this.width/2;
-        if (this.tempX < 0) this.tempX = 0 + this.bullets.width * this.hasBullets;
-        if (this.tempX > canvas.width - this.width) this.tempX = canvas.width - this.width-this.bullets.width * this.hasBullets;
-        this.holdBalls.forEach(
+        launcher.tempX = e.clientX - rct.left- launcher.width/2;
+        if (launcher.tempX < 0) launcher.tempX = 0 + launcher.bullets.width * launcher.hasBullets;
+        if (launcher.tempX > canvas.width - launcher.width) launcher.tempX = canvas.width - launcher.width-launcher.bullets.width * launcher.hasBullets;
+        launcher.holdBalls.forEach(
             (hball)=>{
-                hball.ball.center.x = this.x + hball.xdiff;
+                hball.ball.center.x = launcher.x + hball.xdiff;
             }
         )
-        if (this.hasBullets){
+        if (launcher.hasBullets){
 
         }
     }
@@ -143,20 +144,54 @@ class Launcher{
 
     }
 
-    onClick(){
-        if(this.replay) {
-            this.replay = false;
-            return}
-        this.holdBalls.forEach(
+    onClick(e){
+        if(e.target.id==='arcade'){
+            document.getElementById('custom').classList.remove('active-mode')
+            e.target.classList.add('active-mode')
+            show(predef);
+            hide(custom, createLevel)
+            currentMode = 'arcade'
+            return;
+        }
+        else if(e.target.id==='custom'){
+            document.getElementById('arcade').classList.remove('active-mode')
+            e.target.classList.add('active-mode')
+            show(custom);
+            hide(predef, createLevel)
+
+            currentMode = 'custom';
+            return;
+            
+        }
+        else if (e.target.id === 'create-level'){
+            show(createLevel,removeBrick)
+            hide(custom)
+            createCustomLevel();
+            return;
+        }
+        
+        var level = parseInt(e.target.id)
+        if(level){
+            if(currentMode=='arcade'){
+            currentLevel.level = level;
+            initLevel();
+            if(clickedonce) {requestAnimationFrame(nextFrame); clickedonce=false;}
+        }
+            else{
+                if(level==1) playCustomLevel(1);     
+            }
+            return;
+        }
+        launcher.holdBalls.forEach(
             (hball)=>{
                 hball.ball.speed = hball.ball.savedSpeed;
             }
         );
 
-        delete this.holdBalls;
-        this.holdBalls =[];
+        delete launcher.holdBalls;
+        launcher.holdBalls =[];
 
-        if (this.hasBullets){
+        if (launcher.hasBullets){
             launcher.bullets.addBullets();
         }
 

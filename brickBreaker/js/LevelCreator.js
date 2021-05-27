@@ -12,66 +12,72 @@ class LevelCreator{
             new ScoreMultiplier(),new Expand(),new Shrink(),new BulletPower(),
             new FireBallPower(),new ChakraBallPower()
         ]
-        this.brickArray=[];
-        canvas.addEventListener('mousemove',this.moveBrick.bind(this));
-        canvas.addEventListener('click',this.placeBrick.bind(this));
-        powerCanvas.addEventListener('click',this.select.bind(this));
+        this.brickNumberArray=[];
     }
     init(){
-        
-        
+        this.addEvents();
+        gameOverDialog.style = winDialog.style = "display:none";          
         powerctx.clearRect(0, 0, powerCanvas.width, powerCanvas.height)
         powerctx.beginPath();
         powerctx.fillStyle = "#fff"
         powerctx.fillRect(0, 0,this.width+10,this.height+10);
         this.brickSelected = true;
-        
+        this.makeSelector();
         this.makeSelector();
         this.draw();
     }
+    removeEvents(){
+        canvas.removeEventListener('mousemove',this.moveBrick);
+        canvas.removeEventListener('click',this.placeBrick);
+        powerCanvas.removeEventListener('click',this.select); 
+    }
+    addEvents(){
+        canvas.addEventListener('mousemove',this.moveBrick);
+        canvas.addEventListener('click',this.placeBrick);
+        powerCanvas.addEventListener('click',this.select); 
+    }
     moveBrick(e){
-        // e.stopPropagation()
-        if(!creator) return;
-        e.stopPropagation();
         var rct=canvas.getBoundingClientRect();
-        this.x = e.clientX - rct.left ;
-        this.y = e.clientY - rct.top -this.height;
+        levelCreator.x = e.clientX - rct.left ;
+        levelCreator.y = e.clientY - rct.top -levelCreator.height;
         ;
-        if (this.x < 0) this.x = 0 ;
-        if (this.x > canvas.width - this.width) this.x = canvas.width - this.width;
-        if (this.y < 0) this.y = 0 ;
-        if (this.y > canvas.height - this.height) this.y = canvas.height - this.height;
-        this.x = parseInt(this.x/80)*80;
-        this.y = parseInt(this.y/30)*30
-        this.draw();
+        if (levelCreator.x < 0) levelCreator.x = 0 ;
+        if (levelCreator.x > canvas.width - levelCreator.width) levelCreator.x = canvas.width - levelCreator.width;
+        if (levelCreator.y < 0) levelCreator.y = 0 ;
+        if (levelCreator.y > canvas.height - levelCreator.height) levelCreator.y = canvas.height - levelCreator.height;
+        levelCreator.x = parseInt(levelCreator.x/80)*80;
+        levelCreator.y = parseInt(levelCreator.y/30)*30
+        levelCreator.draw();
         // log('hi')
         
         
     }
     placeBrick(e){
-        if(!creator) return;
-        e.stopPropagation();
-        var brickNumber =this.y/30*10 + this.x/80;
-        var atIndex = this.brickArray.indexOf(brickNumber)
-        if (this.brickSelected ) {
+        var brickNumber =levelCreator.y/30*10 + levelCreator.x/80;
+        var atIndex = levelCreator.brickNumberArray.indexOf(brickNumber)
+        if(!brickAddMode){
+            if(atIndex == -1) return;
+            levelCreator.bricks.splice(atIndex,1);
+            levelCreator.draw();
+            return;
+        }
+        if (levelCreator.brickSelected ) {
             if(atIndex === -1){
-                this.bricks.push(new Brick(this.x,this.y, this.damage));
-                this.brickArray.push(brickNumber);
-                log(brickNumber)
+                levelCreator.bricks.push(new Brick(levelCreator.x,levelCreator.y, levelCreator.damage));
+                levelCreator.brickNumberArray.push(brickNumber);
             }
             else{
-                this.bricks[atIndex]=new Brick(this.x,this.y, this.damage);
+                levelCreator.bricks[atIndex]=new Brick(levelCreator.x,levelCreator.y, levelCreator.damage);
             }
         }
         else{  
             if (atIndex !==-1) {
-                log(brickNumber,'hi')
-                this.bricks[atIndex].power = new this.powers[this.selectedPowerIndex].constructor
-                this.bricks[atIndex].placePower();
+                levelCreator.bricks[atIndex].power = new levelCreator.powers[levelCreator.selectedPowerIndex].constructor
+                levelCreator.bricks[atIndex].placePower();
             }
             
         }
-        this.draw()
+        levelCreator.draw()
     }
 
     draw(){
@@ -82,6 +88,7 @@ class LevelCreator{
                 if(brick.power) brick.power.draw(ctx)
             }
         )
+        if(!brickAddMode) return;
         if(this.brickSelected) ctx.drawImage(spritesCreator,0,0+(this.damage-1)*23,67,23,this.x +5,this.y+5,this.width,this.height);
         else {
             let pow = this.powers[this.selectedPowerIndex];
@@ -104,39 +111,37 @@ class LevelCreator{
     }
 
     select(e){
-        if(!creator) return;
-        e.stopPropagation();
         var rct=powerCanvas.getBoundingClientRect();
         var x = e.clientX - rct.left ;
         var y = e.clientY - rct.top;
         if (y<40) {
             for (let i=0; i<6; i++){
-                var pos = i*(this.width+this.offset+30)+5
-                if (x>pos && x<pos+this.width) {
+                var pos = i*(levelCreator.width+levelCreator.offset+30)+5
+                if (x>pos && x<pos+levelCreator.width) {
                     powerctx.clearRect(0, 0, powerCanvas.width, powerCanvas.height)
                     powerctx.beginPath();
                     powerctx.fillStyle = "#fff"
-                    this.damage = i+1; 
-                    powerctx.fillRect(pos-5, 0, this.width+10, this.height+10 );
-                    this.makeSelector();
-                    this.brickSelected = true;
+                    levelCreator.damage = i+1; 
+                    powerctx.fillRect(pos-5, 0, levelCreator.width+10, levelCreator.height+10 );
+                    levelCreator.makeSelector();
+                    levelCreator.brickSelected = true;
                     break;
                 }
             }
             
         }
         else {
-            for (var i=0; i<this.powers.length; i++){
-                var pos =i*(40+this.offset)+5;
+            for (var i=0; i<levelCreator.powers.length; i++){
+                var pos =i*(40+levelCreator.offset)+5;
                 if (x>pos && x<pos+40) {
                     powerctx.clearRect(0, 0, powerCanvas.width, powerCanvas.height)
                     powerctx.beginPath();
                     powerctx.fillStyle = "#fff"
-                    powerctx.arc(this.powers[i].center.x+15, this.powers[i].center.y+15, 19, 0, Math.PI * 2);
+                    powerctx.arc(levelCreator.powers[i].center.x+15, levelCreator.powers[i].center.y+15, 19, 0, Math.PI * 2);
                     powerctx.fill();    
-                    this.selectedPowerIndex =i;
-                    this.brickSelected = false;
-                    this.makeSelector();
+                    levelCreator.selectedPowerIndex =i;
+                    levelCreator.brickSelected = false;
+                    levelCreator.makeSelector();
                     break;
                 }
             }
