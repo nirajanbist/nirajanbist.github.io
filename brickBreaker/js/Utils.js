@@ -21,9 +21,12 @@ function getDistance(point,corner){
     var y = point.y-corner.y;
     return Math.sqrt(x*x + y*y )
 }
-function createCustomLevel(){
+function createCustomLevel(level){
     removeWindowEvents();
-    levelCreator.init();
+    show(createLevel,removeBrick)
+    hide(custom)
+    brickAddMode = true;
+    levelCreator.prepare(level);
     creator = true;
 }
 
@@ -35,6 +38,9 @@ function resumeGame(e){
     clickedonce = true;
     show(custom);
     hide(createLevel,addBrick,removeBrick);
+    currentLevel.makeCustomLevel(levelCreator.level);
+    levelCreator.out = true;
+    levelCreator.draw();
 }
 }
 
@@ -91,12 +97,13 @@ var gameOver = false;
 var win = false;
 var clickedonce;
 var brickAddMode = true;
+var currentLevelId = '1level'
 
 var score = 0;
 var previousStageScore = 0;
 var highestScore = getHighScore();
-var gameOverDialog = document.getElementById('game-over');
-var winDialog = document.getElementById('you-won');
+var gameOverDialog = document.getElementById('game-over-container');
+var winDialog = document.getElementById('you-won-container');
 var scoreElement = document.getElementById('score-value');
 var highestScoreElement = document.getElementById('highest-score');
 var replayButton = document.getElementById('replay');

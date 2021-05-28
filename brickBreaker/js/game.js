@@ -192,28 +192,39 @@ function resetStageForNextLife(){
 }
 
 function playNextLevel(e){
+    if(e) e.stopPropagation();
     if(currentMode=='arcade'){
         previousStageScore = score;
+        document.getElementById(currentLevelId).classList.remove('level-active');
         currentLevel.level++;
+        currentLevelId =currentLevel.level + 'level';
+        document.getElementById(currentLevelId).classList.add('level-active');
         if(currentLevel.level === 1) previousStageScore = 0;
         playCurrentLevel()
+    }
+    else{
+        if(currentLevel.customBricks[Math.abs(currentLevel.level)+1].length>0){
+            document.getElementById(currentLevelId).classList.remove('level-active');
+            currentLevel.level--;
+            currentLevelId =Math.abs(currentLevel.level)+ 'clevel';
+            document.getElementById(currentLevelId).classList.add('level-active');
+            playCurrentLevel();
+        };
+
     }
 }
 
 function playCurrentLevel(e){
+    if(e) e.stopPropagation();
     initLevel()
     score = previousStageScore;
     requestAnimationFrame(nextFrame);
 }
 
-function playCustomLevel(e){
-    if (levelCreator.bricks.length<1) {
-        alert("No Bricks to Play! Please Create Custom Level First")
-        return;
-    }
-    currentLevel.level = 0;
+function playCustomLevel(level){
+    
+    currentLevel.level = -level;
     score=0;
-    currentLevel.makeCustomLevel();
     initLevel();
     if(clickedonce){
         requestAnimationFrame(nextFrame)
@@ -233,7 +244,7 @@ function initLevel(){
     firstBall.center = launcher.getLauncherCenter()
     launcher.holdBalls=[];
     launcher.holdBalls.push({ball:firstBall, xdiff: launcher.width/2})
-    levelElement.innerText = "Level " + (currentLevel.level || "custom");
+    levelElement.innerText = "Level " + ((currentLevel.level > 0)?currentLevel.level:"custom");
     highestScoreElement.innerText = highestScore;
     currentLevel.init();
     bricks= currentLevel.bricks;
@@ -265,16 +276,23 @@ function makeDivs(){
         predef.append(level)
     }
         
-        divCreate('create-level', "Create Custom Level");
+        divCreate('create-level', "Save Custom Levels");
         custom.append(level)
         divCreate('save-level', "Save Level");
         level.classList.add('none');        
 
-    for(let i=1; i<=1; i++){
-        divCreate(i+'level',"Play Custom Level " );
+    for(let i=1; i<=5; i++){
+
+        divCreate(i+'clevel',"Play Custom Level " +i);
         // level.addEventListener('click', playCustomLevel);
-        customLevelElements.push(level);
-        custom.append(level)
+        var play = level;
+        divCreate(i+"elevel","Edit");
+        var edit = level;
+        var div = document.createElement('div');
+        div.classList.add('flex')
+        div.append(play,edit)
+        // customLevelElements.push(level);
+        custom.append(div)
     }
     
     divCreate('save-level', "Save Level");
@@ -297,6 +315,7 @@ function makeDivs(){
     custom.classList.add('none')
     darea.appendChild(predef)
     darea.appendChild(custom)
+    predefinedLevelElements[0].classList.add('level-active');
 
 }
 var predefinedLevelElements=[];

@@ -5,6 +5,7 @@ class LevelCreator{
         this.height = 23;
         this.damage = 1;
         this.selectedPowerIndex =  -1; 
+        this.out = true;
         this.x=-0;
         this.y=0;
         this.powers=[
@@ -13,7 +14,29 @@ class LevelCreator{
             new FireBallPower(),new ChakraBallPower()
         ]
         this.brickNumberArray=[];
+        this.brickArray = []
+        this.level = 1;
     }
+    prepare(level){
+        this.level = level;
+        this.brickArray = currentLevel.customBricks[level];
+        this.bricks =[];
+        this.brickNumberArray =[]
+        this.brickArray.forEach(
+            (mybrick)=>{
+                if(mybrick[1]){
+                var row = parseInt(mybrick[0] / 10) ;
+                var column = mybrick[0] % 10;
+                var brik = new Brick(column*80, row*30, mybrick[1] || 1, currentLevel.getPower(mybrick[2]))
+                this.bricks.push(brik);
+                this.brickNumberArray.push(row*10+column);
+                }
+            }
+        )
+        this.init();
+        // log(this.bricks);
+    }
+
     init(){
         this.addEvents();
         gameOverDialog.style = winDialog.style = "display:none";          
@@ -22,7 +45,6 @@ class LevelCreator{
         powerctx.fillStyle = "#fff"
         powerctx.fillRect(0, 0,this.width+10,this.height+10);
         this.brickSelected = true;
-        this.makeSelector();
         this.makeSelector();
         this.draw();
     }
@@ -40,6 +62,7 @@ class LevelCreator{
         var rct=canvas.getBoundingClientRect();
         levelCreator.x = e.clientX - rct.left ;
         levelCreator.y = e.clientY - rct.top -levelCreator.height;
+        levelCreator.out = (levelCreator.x < 20 || levelCreator.y < 2) ? true : false;
         ;
         if (levelCreator.x < 0) levelCreator.x = 0 ;
         if (levelCreator.x > canvas.width - levelCreator.width) levelCreator.x = canvas.width - levelCreator.width;
@@ -58,6 +81,7 @@ class LevelCreator{
         if(!brickAddMode){
             if(atIndex == -1) return;
             levelCreator.bricks.splice(atIndex,1);
+            levelCreator.brickNumberArray.splice(atIndex,1);
             levelCreator.draw();
             return;
         }
@@ -88,7 +112,7 @@ class LevelCreator{
                 if(brick.power) brick.power.draw(ctx)
             }
         )
-        if(!brickAddMode) return;
+        if(!brickAddMode || this.out) return;
         if(this.brickSelected) ctx.drawImage(spritesCreator,0,0+(this.damage-1)*23,67,23,this.x +5,this.y+5,this.width,this.height);
         else {
             let pow = this.powers[this.selectedPowerIndex];

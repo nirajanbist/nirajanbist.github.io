@@ -28,18 +28,18 @@
     <!-- Main Game Play Area  and Level Editing Area -->
     <div class="container">
         <canvas id="gameCanvas"></canvas>
-        <div id="game-over">
+        <div id="game-over-container">
             <h1 class="title">GAME OVER</h1>
            
-            <div id ="game-over-score" class="score">
+            <div class="score">
                  <img src="img/score.png" alt="First Coin" style="padding:0 15px; width: 70px; ">
-                 <span>22850</span>
+                 <span id ="game-over-score">22850</span>
                  <img src="img/score.png" alt="First Coin" style="padding:0 15px; width: 70px; ">
             </div>
             <div class="retry" onclick="location.reload()"><div><img src = "img/try-again.png"></div></div>
         </div>
         <!-- Winning Dialog Box -->
-        <div id="you-won">
+        <div id="you-won-container">
             <div class="title">Hurray! YOU WON</div>
             <div class="you-scored">YOU SCORED</div>
            <div class="score-container">

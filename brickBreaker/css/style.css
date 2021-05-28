@@ -52,10 +52,11 @@
 }
 
 .level{
-    width:90%;
+    width:97%;
+    
 }
-.level:active{
-    background-color: #ffee00;
+.level-active{
+    background-color: #ffee00;    
 }
 body{
      background:20px 20px, url('../img/background.png')  ;
@@ -105,7 +106,7 @@ body{
     margin: 30px auto 0;
 }
 
-#game-over, #you-won{
+#game-over-container, #you-won-container{
     position: absolute;
     width: 70%;
     height: 70%;

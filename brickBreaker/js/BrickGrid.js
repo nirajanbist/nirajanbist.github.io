@@ -5,9 +5,10 @@ class BrickGrid{
         this.columns = 10;
         this.bricks;
         this.brickArray;
-        this.customBricks=[]
+        this.customBricks=JSON.parse(localStorage.getItem('customBricks')) || [[],[],[],[],[],[]];
         this.init();
     }
+
     init(){
         this.bricks =[];
         this.makeBrickArray();
@@ -58,21 +59,20 @@ class BrickGrid{
         }
     }
 
-    makeCustomLevel(){
-        this.customBricks =[]
+    makeCustomLevel(level=1){
+        this.customBricks[level] =[]
         levelCreator.bricks.forEach(
             (brick,index)=>{
-                this.customBricks.push([levelCreator.brickNumberArray[index], brick.damage, this.setPower(brick.power)])
+                this.customBricks[level].push([levelCreator.brickNumberArray[index], brick.damage, this.setPower(brick.power)])
             }
         )
     }
 
     makeBrickArray(){
         var nn='';
+        if (this.level<1){this.brickArray = this.customBricks[Math.abs(this.level)]; return};
         switch(this.level){
-            case 0:
-                this.brickArray = this.customBricks;
-                break;
+            
             case 1:
                 this.brickArray = [
     // [#0,1,'__'], [#1,1,'__'], [#2,1,'__'], [#3,1,'__'], [#4,1,'__'], [#5,1,'__'], [#6,1,'__'], [#7,1,'__'], [#8,1,'__'], [#9,1,'__'],
@@ -82,7 +82,7 @@ class BrickGrid{
     [30,1,'__'], [31,1,'__'], [32,1,'sh'], [33,2,'__'], [34,1,'__'], [35,1,'__'], [36,2,'__'], [37,1,'__'], [38,1,'__'], [39,1,'__'],
     [40,1,'fi'], [41,1,'__'], [42,1,'__'], [43,2,'__'], [44,1,'__'], [45,1,'ma'], [46,2,'__'], [47,1,'__'], [48,1,'sx'], [49,1,'__'],
     [50,1,'__'], [51,1,'__'], [52,1,'su'], [53,2,'sd'], [54,1,"sd"], [55,1,'sd'], [56,2,'sd'], [57,1,'__'], [58,1,'__'], [59,1,'__'],
-    [60,1,'__'], [61,1,'sd'], [62,1,'sd'], [63,2,'sd'], [64,1,'sd'], [65,1,'su'], [66,2,'su'], [67,1,'su'], [68,1,'__'], [69,1,'__'],
+    [60,1,'__'], [61,1,'ch'], [62,1,'chsd'], [63,2,'ch'], [64,1,'ch'], [65,1,'su'], [66,2,'su'], [67,1,'su'], [68,1,'__'], [69,1,'__'],
     // [70,1,'__'], [71,1,'__'], [72,1,'__'], [73,1,'__'], [74,1,'__'], [75,1,'__'], [76,1,'__'], [77,1,'__'], [78,1,'__'], [79,1,'__'],
     // [80,1,'__'], [81,1,'__'], [82,1,'__'], [83,1,'__'], [84,1,'__'], [85,1,'__'], [86,1,'__'], [87,1,'__'], [88,1,'__'], [89,1,'__'],
     // [90,1,'__'], [91,1,'__'], [92,1,'__'], [93,1,'__'], [94,1,'__'], [95,1,'__'], [96,1,'__'], [97,1,'__'], [98,1,'__'], [99,1,'__'],

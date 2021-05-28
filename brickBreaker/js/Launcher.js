@@ -164,21 +164,36 @@ class Launcher{
             
         }
         else if (e.target.id === 'create-level'){
-            show(createLevel,removeBrick)
-            hide(custom)
-            createCustomLevel();
+            localStorage.setItem("customBricks", JSON.stringify(currentLevel.customBricks));
+            log(JSON.parse(localStorage.getItem('customBricks')) || [[],[],[],[],[],[]])
             return;
         }
         
         var level = parseInt(e.target.id)
+
+        
         if(level){
-            if(currentMode=='arcade'){
-            currentLevel.level = level;
-            initLevel();
-            if(clickedonce) {requestAnimationFrame(nextFrame); clickedonce=false;}
-        }
+            if(e.target.id == level+'elevel'){
+                createCustomLevel(level);
+                return;
+            }
+            else if(currentMode=='arcade'){
+                document.getElementById(currentLevelId).classList.remove('level-active');
+                currentLevel.level = level;
+                e.target.classList.add('level-active');
+                currentLevelId = e.target.id;
+                initLevel();
+                if(clickedonce) {requestAnimationFrame(nextFrame); clickedonce=false;}
+            }
             else{
-                if(level==1) playCustomLevel(1);     
+                if (currentLevel.customBricks[level].length<1) {
+                    alert("No Bricks to Play! Please Create Custom Level First")
+                    return;
+                }
+                document.getElementById(currentLevelId).classList.remove('level-active');
+                e.target.classList.add('level-active'); 
+                currentLevelId = e.target.id;  
+                playCustomLevel(level);
             }
             return;
         }
