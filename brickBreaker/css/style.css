@@ -267,14 +267,13 @@ body{
 }
 .remaining-life-container{
     display: flex;
-    height: 50px;
+    height: 60px;
     border-top: 2px solid red;
     border-bottom: 2px solid red;
     margin-top: 20px;
 }
 .text{
     color:white;
-    width: 100%;
     padding-left: 10px;
     padding-top: 12px;
     border-right: 2px solid #fff;
@@ -324,3 +323,70 @@ body{
     pointer-events: none;
     background-color: rgb(117, 114, 114);
 }
+
+@media screen and (max-width: 1260px)
+{
+    .sidebar{
+        display: inline-table;
+        width: calc(100% - 840px);
+        padding:10px;
+        height: 300px;
+    }
+    .text{
+        display: none;
+    }
+    
+    .score-board{
+        left:10px;
+        top:70%;
+    }   
+
+    .container{
+        position: absolute;
+        right: 40px;
+    }
+    .power-container{
+        position: absolute;
+        right: 40px;
+        top:500px;
+    }
+}
+@media screen and (max-width: 1080px)
+{
+    .sidebar{
+        position: relative;
+        width: 35vw;
+    }
+    *{
+        font-size: 20px !important;
+    }
+    .remaining-life-container{
+        border:0;
+    }
+    .text{
+        width: 300px;
+        display: block;
+    }
+    .flex{
+        display: inline-block;
+        margin:5px;
+    }
+    .block{
+        display: inline-block;
+    }
+    .level{
+        width: 100%;
+    }
+    .w1{
+        width: 100%;
+    }
+    .container, .power-container{
+        position: static;
+    }
+
+    
+
+ 
+}
+
+

@@ -84,9 +84,9 @@ function makeLevelButtons(){
     custom = document.createElement('div')
     custom.id = "custom-levels"
     var level;
-    function divCreate(id,txt){
+    function divCreate(id,txt,disp='block'){
         level = document.createElement('div')
-        level.classList.add('btn','w1','tc','level')
+        level.classList.add('btn','w1','tc','level',disp)
         level.innerText = txt;
         level.id = id;
         return level;
@@ -118,19 +118,16 @@ function makeLevelButtons(){
         custom.append(div)
     }
     
-    divCreate('save-level', "Set Stage");
-    level.classList.add('none');
+    divCreate('save-level', "Set Stage",'none');
     darea.appendChild(level)
     createLevel = level;
     createLevel.onclick = resumeGame;
     
-    divCreate('add-brick', "ADD BRICK");
-    level.classList.add('none');
+    divCreate('add-brick', "ADD BRICK",'none');
     darea.appendChild(level)
     addBrick=level;
 
-    divCreate('remove-brick', "REMOVE BRICK");
-    level.classList.add('none');
+    divCreate('remove-brick', "REMOVE BRICK",'none');
     darea.appendChild(level)
     removeBrick =level;
     addBrick.onclick = removeBrick.onclick = toggleEditMode;
