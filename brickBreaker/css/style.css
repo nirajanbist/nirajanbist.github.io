@@ -307,8 +307,20 @@ body{
 
 #highest-score{
     text-align: center;
-    color: rgb(27, 255, 114);
+    color: rgb(151, 255, 255);
     border-bottom: 12px solid #ffee00;
     padding-bottom: 10px;
     letter-spacing: 2px;
+}
+
+#info{
+    color: #8eff59;
+    margin-top: 10px;
+    padding: 20px;
+    font-size: .8em;
+}
+
+.disabled{
+    pointer-events: none;
+    background-color: rgb(117, 114, 114);
 }

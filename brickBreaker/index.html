@@ -11,16 +11,12 @@
     <!-- Left Side  Current Level  and set of Controls -->
     <div class="sidebar left-panel noclick">
         <div id="level" class="score-heading">Level</div>
-        <div class="button-controllers none">
-            <button class="custom-level" onclick="createCustomLevel()">Custom Level</button>
-            <button id = "resume" class="custom-level" >Resume</button>
-            <button id = "play-custom" class="custom-level" onclick="playCustomLevel()">Play Custom</button>
-        </div>
 
         <div class="flex arcade-custom">
             <div id="arcade" class="btn w1 tc active-mode">Arcade</div>
             <div id="custom" class="btn w1 tc">Custom</div>
         </div>
+        
         <div id="display-area"></div>
        
     </div>
@@ -74,6 +70,8 @@
         
         <div class="score-heading high-score">Highest Score</div>
         <div id="highest-score">$98495747</div>
+
+        <div id="info" class="tc none">Information Div</div>
     </div>
     
     <!-- Needed Sprites  -->
@@ -87,8 +85,11 @@
 <script  src="js/Brick.js"></script>
 <script  src="js/Power.js"></script>
 <script  src="js/BrickGrid.js"></script>
+<script  src="js/Bullets.js"></script>
 <script  src="js/Launcher.js"></script>
 <script  src="js/LevelCreator.js"></script>
+<script  src="js/Collision.js"></script>
+<script  src="js/Events.js"></script>
 <script  src="js/game.js"></script>
 
 </html>

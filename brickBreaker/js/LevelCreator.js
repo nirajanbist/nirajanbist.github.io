@@ -19,7 +19,7 @@ class LevelCreator{
     }
     prepare(level){
         this.level = level;
-        this.brickArray = currentLevel.customBricks[level];
+        this.brickArray = currentGrid.customBricks[level];
         this.bricks =[];
         this.brickNumberArray =[]
         this.brickArray.forEach(
@@ -27,7 +27,7 @@ class LevelCreator{
                 if(mybrick[1]){
                 var row = parseInt(mybrick[0] / 10) ;
                 var column = mybrick[0] % 10;
-                var brik = new Brick(column*80, row*30, mybrick[1] || 1, currentLevel.getPower(mybrick[2]))
+                var brik = new Brick(column*80, row*30, mybrick[1] || 1, currentGrid.getPower(mybrick[2]))
                 this.bricks.push(brik);
                 this.brickNumberArray.push(row*10+column);
                 }

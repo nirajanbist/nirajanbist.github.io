@@ -38,7 +38,7 @@ function resumeGame(e){
     clickedonce = true;
     show(custom);
     hide(createLevel,addBrick,removeBrick);
-    currentLevel.makeCustomLevel(levelCreator.level);
+    currentGrid.makeCustomLevel(levelCreator.level);
     levelCreator.out = true;
     levelCreator.draw();
 }
@@ -74,7 +74,7 @@ function show(...el){
     )
 }
 function setHighScore(){
-    if(highestScore < score && currentLevel.level > 0) {
+    if(highestScore < score && currentGrid.level > 0) {
         localStorage.setItem('@highScore',score);
         highestScore = score;
         highestScoreElement.innerText = score;
@@ -86,9 +86,12 @@ function getHighScore(){
     return localStorage.getItem('@highScore') || 0;
 }
 
-
-// var frameTimestamp = Date.now();
-
+function displayInfo(text){
+    infoDiv.innerText = text;
+    show(infoDiv);
+    setTimeout(()=>hide(infoDiv),3000)
+}
+//GLOBAL VARIABLES
 var fcount = 0; //count no. of frame for relative timing;
 var currentMode = 'arcade';
 var bricks=[]
@@ -98,6 +101,7 @@ var win = false;
 var clickedonce;
 var brickAddMode = true;
 var currentLevelId = '1level'
+var totalCustomLevels = 7;
 
 var score = 0;
 var previousStageScore = 0;
@@ -111,7 +115,7 @@ var nextStageButton = document.getElementById('next-stage');
 var levelElement = document.getElementById('level');
 var lifeIndicators = document.getElementById('life-indicators');
 var resumeBtn = document.getElementById('resume');
-// log(lifeIndicators)
+var infoDiv = document.getElementById('info');
 
 var sprites = document.getElementById('sprite')
 var sprites2 = document.getElementById('sprite2');
@@ -123,11 +127,11 @@ var powerCanvas = document.getElementById('powerCanvas');
 var powerctx = powerCanvas.getContext('2d');
 
 
-function resize(){
+function resizeCanvas(){
    canvas.width = canvas.parentElement.clientWidth;      
    canvas.height = canvas.parentElement.clientHeight;  
    powerCanvas.width = powerCanvas.parentElement.clientWidth;      
    powerCanvas.height = powerCanvas.parentElement.clientHeight;  
 
 }
-resize();
+resizeCanvas();
