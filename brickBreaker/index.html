@@ -21,6 +21,25 @@
        
     </div>
 
+     <!-- Right Bar Display ---Current Score and Remaning Lives -->
+     <div class="sidebar score-board noclick">
+        <div class="score-heading">YOUR SCORE</div>
+        <div class="score-box"><img src="img/score.png" alt="Score Coin Image"><span id="score-value">$53607</span></div>
+        <div class="remaining-life-container">
+            <div class="text">REMAINING LIVES</div>
+            <div id="life-indicators">
+                <div class="life"><img src="img/bricks.png" alt="Heart Image"></div>
+                <div class="life"><img src="img/bricks.png" alt="Heart Image"></div>
+                <div class="life" ><img src="img/bricks.png" alt="Heart Image"></div>
+            </div>
+        </div>
+        
+        <div class="score-heading high-score">Highest Score</div>
+        <div id="highest-score">$98495747</div>
+
+        <div id="info" class="tc none">Information Div</div>
+    </div>
+    
     <!-- Main Game Play Area  and Level Editing Area -->
     <div class="container">
         <canvas id="gameCanvas"></canvas>
@@ -55,24 +74,7 @@
     <div class = "power-container">
         <canvas id = "powerCanvas" ></canvas>
     </div>
-    <!-- Right Bar Display ---Current Score and Remaning Lives -->
-    <div class="sidebar score-board noclick">
-        <div class="score-heading">YOUR SCORE</div>
-        <div class="score-box"><img src="img/score.png" alt="Score Coin Image"><span id="score-value">$53607</span></div>
-        <div class="remaining-life-container">
-            <div class="text">REMAINING LIVES</div>
-            <div id="life-indicators">
-                <div class="life"><img src="img/bricks.png" alt="Heart Image"></div>
-                <div class="life"><img src="img/bricks.png" alt="Heart Image"></div>
-                <div class="life" ><img src="img/bricks.png" alt="Heart Image"></div>
-            </div>
-        </div>
-        
-        <div class="score-heading high-score">Highest Score</div>
-        <div id="highest-score">$98495747</div>
-
-        <div id="info" class="tc none">Information Div</div>
-    </div>
+   
     
     <!-- Needed Sprites  -->
     <img id="sprite" src = "img/bricks.png" style="display: none;">
