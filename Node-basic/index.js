@@ -8,7 +8,7 @@ log(path.normalize('../../.././/.//////irr/file.txt'))
 log(path.join(__filename,'//./test.txt'))
 
 const fs = require('fs');
-// fs.mkdir("img",(err)=>{if(err) throw err; log("Folder Created Successfully")})
+fs.mkdir("img",(err)=>{if(err) throw err; log("Folder Created Successfully")})
 
 // fs.writeFile("img/newFile.txt","Hello Nepal",{encoding: 'utf-8'},(err)=>{if(err) throw err; log("Folder Created Successfully")})
 const f1 = fs.readFile("img/newFile.txt",{encoding: 'utf-8'},(e,d)=>log("Async loaded "+d))
@@ -19,12 +19,13 @@ log("Sync Loaded "+f2)
     log(e.message)
 }
 
-// if(f2) fs.appendFile('img/newFile.txt',": A country of Mountains.",log)
-// fs.rmdir('honey',(err)=>{if (err) throw err; else log("Folder Honey Deleted")});
+if(f2) fs.appendFile('img/newFile.txt',": A country of Mountains.",log)
+fs.rmdir('honey',(err)=>{if (err) throw err; else log("Folder Honey Deleted")});
+
 const os = require('os');
 log(`Free RAM ${os.freemem()/(2**30)} GB  of Total ${os.totalmem()/(2**30)}`)
 log(`TempDir ${os.tmpdir()}, OS Type ${os.type()} \n\n`)
-log('Uptime is '+os.uptime()/3600 +" hrs")
+log('Uptime is '+ os.uptime()/3600 +" hrs")
 
 
 const http = require('http')
