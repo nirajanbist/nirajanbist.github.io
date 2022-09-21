@@ -146,20 +146,44 @@ hr{
 }
 
 .product > .upper{
+	display: flex;
 	min-width: 100px;
 }
 .plinks{
-	float:left;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	row-gap: 10px;
+	padding: 1rem;
 	width:20%;
 }
-.plinks img{
-	display:block;
-	padding:30% 30%;
+
+.plink-item{
+	width: 30px;
+	height: 30px;
+	font-size: 1rem;
+	text-align: center;
+}
+
+.plink-item img{
+	width: 1em;
+}
+
+.plink-item:hover img{
+	width: 1.5em;
+}
+
+.plink-item .heart {
+	font-size: 1.25rem;
 }
 .item-image{
 	position: relative;
-	height: 265px;float:left;width:80%;
+	height: 265px;
+	display: flex;
+	width:80%;
 }
+
 .item-image img{
 	max-width:100%;
 	height: 265px;
